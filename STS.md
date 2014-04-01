@@ -18,6 +18,8 @@ A DNS discovery ID goes in the following format: user@domain. Users should not e
 
 The Tox:// URI has 2 versions, tox1 and tox2. Tox2 attempts to stop dns request spamming and dns poisoning attacks by using the a form of the nospam as a unique pin. Use of tox1 is **depreciated**, and use is **strongly discouraged**.
 
+In the case of multiple records clients should first look for the highest version record and default to that, this becomes the highest priority. In the case of multiple records of the sam priority, a client is free to choose the first one the dns lookup reported.
+
 ####tox1
 The value of a Tox DNS record goes v=version;id=Tox ID, where the version is tox1,and id is the users Tox ID. A client then follows the standard tox:// schema. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.
 
