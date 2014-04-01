@@ -20,7 +20,7 @@ A DNS discovery ID goes in the following format: user@domain. Users should not e
     <uri> ::= "tox://" <Tox id> | (<user> "@" <domain> <opt_pin>)
     <Tox id> ::= <public key><nospam><checksum>
     <checksum> ::= <public key> xor checksum <nospam>
-    <DNS discovery ID> ::= "tox://" <user> "@" <domain> <opt_pin>
+    <DNS discovery ID> ::= <user> "@" <domain> <opt_pin>
     <pin> ::= <nospam.base16> -> base64
     Checking a PIN ::= <pin.base64> -> <temp_checksum.base16>; (<public key> xor checksum <temp_checksum>) == <checksum>
     <dns_record_text> ::= "v=tox1;pub=" <public key> ";check=" <checksum>
