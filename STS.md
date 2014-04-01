@@ -25,7 +25,7 @@ The value of a Tox DNS record goes v=version;id=Tox ID, where the version is tox
 The value of a Tox DNS record goes v=version;pub=public key;check=checksum, where the version is tox2, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends == to it and turns it from base64 to hexidacimal and XOR's this against the key, checking it against the checksum to verify.
 
 ####tox1 BNF
-    <uri> ::= "tox://" <Tox id> | (<user> "@" <domain>)
+    <uri> ::= "tox://" (<Tox id> | <user> "@" <domain>)
     <Tox id> ::= <public key><nospam><checksum>
     <checksum> ::= <public key> xor checksum <nospam>
     <DNS discovery ID> ::= <user> "@" <domain>
@@ -33,7 +33,7 @@ The value of a Tox DNS record goes v=version;pub=public key;check=checksum, wher
     <dns_record_format> ::= "TXT" <user> "._tox." <domain> "=" <dns_record_check>
 
 ####tox2 BNF
-    <uri> ::= "tox://" <Tox id> | (<user> "@" <domain>)
+    <uri> ::= "tox://" (<Tox id> | <user> "@" <domain>)
     <Tox id> ::= <public key><nospam><checksum>
     <checksum> ::= <public key> xor checksum <nospam>
     <DNS discovery ID> ::= <user> "@" <domain>
