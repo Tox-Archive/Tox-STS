@@ -16,7 +16,7 @@ The Tox URI scheme is as follows: tox://. A client must accept {CLIENT_NAME} tox
 ###DNS Discovery (should be reworded)
 A DNS discovery ID goes in the following format: user@domain. Users should not enter a DNS discovery ID in any way they don't normally add a Tox ID, clients should be able to figure out what is what. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value user._tox.domain. In this case the @ is replaced with _tox, allowing the use of subdomains while ensuring a record is a Tox record. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
 
-The Tox:// URI has 2 versions, tox1 and tox2. Tox2 attempts to stop dns request spamming and dns poisoning attacks by using the a form of the nospam as a unique pin.
+The Tox:// URI has 2 versions, tox1 and tox2. Tox2 attempts to stop dns request spamming and dns poisoning attacks by using the a form of the nospam as a unique pin. Use of tox1 is **depreciated**, and use is **strongly discouraged**.
 
 ####tox1
 The value of a Tox DNS record goes v=version;id=Tox ID, where the version is tox1,and id is the users Tox ID. A client then follows the standard tox:// schema. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.
