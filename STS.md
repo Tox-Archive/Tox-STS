@@ -16,12 +16,12 @@ The Tox URI scheme is as follows: tox://. A client must accept {CLIENT_NAME} tox
 ###DNS Discovery (should be reworded)
 A DNS discovery ID goes in the following format: user@domain. Users should not enter a DNS discovery ID in any way they don't normally add a Tox ID, clients should be able to figure out what is what. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value user._tox.domain. In this case the @ is replaced with _tox, allowing the use of subdomains while ensuring a record is a Tox record. The value of a Tox DNS record goes v=version;pub=public key;check=checksum, where the version is always tox1, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends == to it and turns it from base64 to hexidacimal and XOR's this against the key, checking it against the checksum to verify. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
 
-####BNF
+####tox:// BNF
     <uri> ::= tox:// and <Tox id> or (<user> @ <domain> and <opt_pin>)
     <Tox id> ::= <public key><nospam><checksum>
     <checksum> ::= <public key> xor checksum <nospam>
     <DNS discovery ID> ::= tox:// and <user> @ <domain> and <opt_pin>
-    <pin> ::= <nospam.base16> > base64
+    <pin> ::= <nospam.base16> -> base64
     Checking a PIN ::= <pin.base64> -> <temp_checksum.base16>; (<public key> xor checksum <temp_checksum>) == <checksum>
     <dns_record_text> ::= v=tox1;pub=<public key>;check=<checksum>
     <dns_record_format> ::= TXT <user>._tox.<domain> = <dns_record_check>
