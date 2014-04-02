@@ -20,11 +20,10 @@ The `tox://` URI has 2 versions, tox1 and tox2. Tox2 attempts to stop dns reques
 
 In the case of multiple records clients should first look for the highest version record and default to that, this becomes the highest priority. In the case of multiple records of the sam priority, a client is free to choose the first one the dns lookup reported.
 
-####tox1
-The value of a Tox DNS record goes `v=version;id=Tox ID`, where the version is tox1, and id is the users Tox ID. A client then follows the standard `tox://` schema. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.
+| Tox1        | Tox2          |
+| ------------- |:-------------:|
+| The value of a Tox DNS record goes `v=version;id=Tox ID`, where the version is tox1, and id is the users Tox ID. A client then follows the standard `tox://` schema. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.      | The value of a Tox DNS record goes `v=version;pub=public key;check=checksum`, where the version is tox2, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends `==` to it and turns it from base64 to hexidacimal and XOR's this against the key, checking it against the checksum to verify. |
 
-####tox2
-The value of a Tox DNS record goes `v=version;pub=public key;check=checksum`, where the version is tox2, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends `==` to it and turns it from base64 to hexidacimal and XOR's this against the key, checking it against the checksum to verify.
 
 ####tox1 BNF
     <uri> ::= "tox://" (<Tox id> | <user> "@" <domain>)
