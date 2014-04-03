@@ -18,8 +18,9 @@ The Tox URI scheme is as follows: `tox://`. A client must accept `{CLIENT_NAME} 
 
 #####BNF of Tox URI Scheme
 ```
-<uri-scheme> ::= "tox://" <tox-id>
+<uri-scheme> ::= "tox://" <tox-id> "?" <key> = <value> "&" <key> = <value>
 ```
+Keep in mind that information after the <tox-id> is optional.
 
 Additionally, a query string may be attached to the URI, containing auxiliary information such as a pre-defined message, or a PIN (see DNS Discovery below). Clients **must** ignore any unknown key/value pairs.
 
