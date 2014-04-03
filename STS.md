@@ -55,16 +55,16 @@ In the case of multiple records clients should first look for the highest versio
 <dns-record-format> ::= <dns-record-type> " " <dns-record-name> "=" <dns-record-value>
 <dns-record-type> ::= "TXT"
 <dns-record-name> ::= <user> "._tox." <domain>
-<dns-record-value> ::= "v=" <dns-record-version-1> ";" "id=" <tox-id> | "v=" <dns-record-version-2> ";" "pub=" <public-key> ";" "check=" <pin>
+<dns-record-value> ::= "v=" <dns-record-version-1> ";" "id=" <tox-id> | "v=" <dns-record-version-2> ";" "pub=" <public-key> ";" "check=" <checksum>
 <dns-record-version-1> ::= "tox1"
 <dns-record-version-2> ::= "tox2"
 ```
 
 `<user>` and `<domain>` you get from the URI,
 
-`<pin>` is a `<nospam>` converted from base16 (hex) to base64
+`<tox-id>` you get from toxcore, `<public-key>` and `<checksum>` can be taken from <tox-id> (more info [here](http://api.libtoxcore.so/core_concepts.html#the-tox-id)).
 
-`<tox-id>`, `<nospam>` and `<public-key>` you get from toxcore.
+
   
   
 ## Translation of STS Terminology
