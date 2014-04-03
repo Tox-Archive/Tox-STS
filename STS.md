@@ -64,6 +64,9 @@ In the case of multiple records clients should first look for the highest versio
 
 `<tox-id>` you get from toxcore, `<public-key>` and `<checksum>` can be taken from <tox-id> (more info [here](http://api.libtoxcore.so/core_concepts.html#the-tox-id)).
 
+###Domain signing
+Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records and turned in to base64 without the ==, where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records, and needs to be added to toxcore as a toxsign function for verifying. In tox1 the signature is of the ID, while in tox2 the signature is of the public key + checksum. With Domain signing, the public key is also stored in a txt record, using the format ```v=tox;pub={public key}```. Keep in mind, due to potential issues where the public key is the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
+
 
   
   
