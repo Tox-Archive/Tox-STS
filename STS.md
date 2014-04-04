@@ -32,6 +32,8 @@ Additionally, a query string may be attached to the URI, containing auxiliary in
 
 It is recommended that client-specific query parameters prefix the key name with an "x" (e.g. `tox://james@nsa.gov?x-gov-employee-id=11925334`).
 
+A set of URIs to test your implementation against can be found [here](https://kirara.ca/toxurl_testcases.html).
+
 ##DNS Discovery (should be reworded)
 A DNS discovery ID goes in the following format: `user@domain`. Users should not enter a DNS discovery ID in any way they don't normally add a Tox ID, clients should be able to figure out what is what. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value `user._tox.domain`. In this case the `@` is replaced with `_tox`, allowing the use of subdomains while ensuring a record is a Tox record. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
 
