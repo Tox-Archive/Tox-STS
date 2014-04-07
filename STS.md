@@ -21,6 +21,9 @@ There are three fields a Tox client must offer when a user goes to add another. 
 ###Group Messaging
 Tox allows for group messaging, where users may join a specified Tox ID and will be able to communicate in one "room". These are to be referred to as **Groupchats**. Clients will have a lot of leeway when it comes to the implementation of Groupchats, as each will offer a unique approach to it. However, they are a basic necessity and are required to be implemented, whatever the approach may be. 
 
+###Multimedia messaging
+The Tox Core allows for encrypted video and audio calling, as a well file sharing. All three services must be implemented to be considered STS-compliant, but as of writing, no client has all three. Implementing video is a hard task, and we understand that. We simply as devs to work with the given scenarios and try their best. (should be reworded?)
+
 
 ##Tox URI scheme (should be reworded)
 The Tox URI scheme is as follows: `tox://`. A client must accept `{CLIENT_NAME} tox://{PASSED}`. A client must then check to see if this is a standard ID or DNS discovery ID. If this is a standard ID, a client should show the user the ID, asking if they want to add said ID, a negative response should close the client, unless the client was already open prior to the URI event, while a positive response should add the ID. If a DNS discovery ID is detected, a client should ask the user for the IDs pin if not provided. A client then follows DNS Discovery procedure to verify this, notifying the user if it is wrong. Afterwards, resolve this and ask the user if he wants to add said ID, showing the ID and email. As before, a negative response should close the client while a positive should add the ID. On a malformed ID the client should alert the user, closing the client after acknowledgement.
