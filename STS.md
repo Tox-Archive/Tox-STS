@@ -5,25 +5,36 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 
 ##User Identification & Interaction
 ###User Profiles
-- Users exchange a 76-character string that contains a public key, a nospam value, and a checksum to be used as an identifier. This is to be called the **Tox ID**. "User ID", "ID", and other derivatives are not valid and fail to follow the STS. 
+- Users exchange a 76-character string that contains a public key, a nospam value, and a checksum to be used as an identifier. This is to be called the **Tox ID**. "User ID", "ID", and other derivatives are not valid and fail to follow the STS.
 - Users can set a **Nickname** or **Name** to present a quick way of identification once the friend request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in anyway. "Username", "Nick", and other derivatives are not valid and fail to follow the STS.
 - Users may set a status, along with an optional message that allows for updates about life activities, current willingness to conversate, etc. This unit will be called the **Status**, and the three quick-statuses, usually selected via a drop-down menu, are to be  **"Online, Away, and Busy"** (Optional support for invisible). A field for a custom status message must also be offered.
 
 ###Friend Requests
 There are three fields a Tox client must offer when a user goes to add another. While two of these fields are optional for the end-user to fill out, it is required that Tox clients provide all three fields in the UI. These are, and should be labeled as, as follows:
 
-| Type | Requirement | Description 
-| --- | --- | --- 
-| **Tox ID** | Required | The user can paste a Tox ID into the field, or, alternatively, if the user is on a mobile device, the option to use scan a QR code should also be offered 
+| Type | Requirement | Description
+| --- | --- | ---
+| **Tox ID** | Required | The user can paste a Tox ID into the field, or, alternatively, if the user is on a mobile device, the option to use scan a QR code should also be offered
 | **Nickname** | Optional | The user can set a custom nickname for the friend they're about to add  
-| **Message** | Optional | The user can send a custom message to be displayed to the friend they're adding, either for indentification purposes, or anything else.
+| **Message** | Optional | The user can send a custom message to be displayed to the friend they're adding, either for identification purposes, or anything else.
+
+###Friend List
+Each client should include a way to manage friend lists, including the ability to export and import lists *in a standard format (YET TO BE DECIDED)*. This will allow for users to switch clients and maintain backup copies. (Needs to be reworded)
 
 ###Group Messaging
-Tox allows for group messaging, where users may join a specified Tox ID and will be able to communicate in one "room". These are to be referred to as **Groupchats**. Clients will have a lot of leeway when it comes to the implementation of Groupchats, as each will offer a unique approach to it. However, they are a basic necessity and are required to be implemented, whatever the approach may be. 
+Tox allows for group messaging, where users may join a specified Tox ID and will be able to communicate in one "room". These are to be referred to as **Groupchats**. Clients will have a lot of leeway when it comes to the implementation of Groupchats, as each will offer a unique approach to it. However, they are a basic necessity and are required to be implemented, whatever the approach may be.
 
 ###Multimedia messaging
 The Tox Core allows for encrypted video and audio calling, as a well file sharing. All three services must be implemented to be considered STS-compliant, but as of writing, no client has all three. Implementing video is a hard task, and we understand that. We simply as devs to work with the given scenarios and try their best. (should be reworded?)
 
+
+##User Safety
+
+###User Profile Encryption
+In order to prevent the threat of local data theft, all Tox clients should, however the method or implementation (including choice of crypto), should provide a method to encrypt all local data. This is not STS-required, but heavily requested to keep the users of Tox safe. (under discussion)
+
+###NoSpam
+All Tox IDs have attached a small NoSpam (finish later)
 
 ##Tox URI scheme (should be reworded)
 The Tox URI scheme is as follows: `tox://`. A client must accept `{CLIENT_NAME} tox://{PASSED}`. A client must then check to see if this is a standard ID or DNS discovery ID. If this is a standard ID, a client should show the user the ID, asking if they want to add said ID, a negative response should close the client, unless the client was already open prior to the URI event, while a positive response should add the ID. If a DNS discovery ID is detected, a client should ask the user for the IDs pin if not provided. A client then follows DNS Discovery procedure to verify this, notifying the user if it is wrong. Afterwards, resolve this and ask the user if he wants to add said ID, showing the ID and email. As before, a negative response should close the client while a positive should add the ID. On a malformed ID the client should alert the user, closing the client after acknowledgement.
@@ -83,7 +94,7 @@ In the case of multiple records clients should first look for the highest versio
 Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records and turned in to base64 without the ==, where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records, and needs to be added to toxcore as a toxsign function for verifying. In tox1 the signature is of the ID, while in tox2 the signature is of the public key + checksum. With Domain signing, the public key is also stored in a txt record, using the format ```v=tox;pub={public key}```. Keep in mind, due to potential issues where the public key is the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
 
-  
-  
+
+
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, Tox ID is to remain, untouched, in English. In the future, we will provide translations to be used in non-English Tox clients.
