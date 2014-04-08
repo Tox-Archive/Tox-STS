@@ -2,6 +2,21 @@ Single Tox Standard Draft v.0.0.4
 ===
 As Tox grows and more clients are created, we feel it is time to  create a Tox standard. Doing so will enable us to promote a single, cohesive brand despite the numerous clients. STS aims to offer a handbook for existing and potential client developers to follow so they can all remain consistent, yet unique in their own way. This will prevent confusion for users who wish to switch clients, and allow Tox to focus on pushing a single brand. At the moment, we are strongly recommending adherence to the STS, as it will foster a more productive environment, but we recognize that it’s the right of the developer to choose.
 
+##Table of Contents
+
+1. User Identification & Interaction
+  * [User Profiles](#user-identification--interaction)
+  * [Friend Requests](#user-profiles)
+  * [Friends List](#friends-list)
+  * [Group Messaging](#group-messaging)
+  * [Multimedia Messaging](#multimedia-messaging)
+2. User Safety
+  * [User Profile Encryption](#user-profile-encryption)
+  * [NoSpam](#nospam)
+3. User Discovery
+  * [Tox URI Scheme](#tox-uri-scheme)
+  * [DNS Discovery](#dns-discovery)
+
 
 ##User Identification & Interaction
 ###User Profiles
@@ -18,7 +33,7 @@ There are three fields a Tox client must offer when a user goes to add another. 
 | **Nickname** | Optional | The user can set a custom nickname for the friend they're about to add  
 | **Message** | Optional | The user can send a custom message to be displayed to the friend they're adding, either for identification purposes, or anything else.
 
-###Friend List
+###Friends List
 Each client should include a way to manage friend lists, including the ability to export and import lists *in a standard format (YET TO BE DECIDED)*. This will allow for users to switch clients and maintain backup copies. (Needs to be reworded)
 
 ###Group Messaging
@@ -31,12 +46,13 @@ The Tox Core allows for encrypted video and audio calling, as a well file sharin
 ##User Safety
 
 ###User Profile Encryption
-In order to prevent the threat of local data theft, all Tox clients should, however the method or implementation (including choice of crypto), should provide a method to encrypt all local data. This is not STS-required, but heavily requested to keep the users of Tox safe. (under discussion)
+In order to prevent the threat of local data theft, all Tox clients should, however the method or implementation (including choice of crypto), provide a method to encrypt all local data. This is not STS-required, but heavily requested to keep the users of Tox safe. (under discussion)
 
 ###NoSpam
 All Tox IDs have attached a small NoSpam (finish later)
 
-##Tox URI scheme (should be reworded)
+##User Discovery
+###Tox URI scheme
 The Tox URI scheme is as follows: `tox://`. A client must accept `{CLIENT_NAME} tox://{PASSED}`. A client must then check to see if this is a standard ID or DNS discovery ID. If this is a standard ID, a client should show the user the ID, asking if they want to add said ID, a negative response should close the client, unless the client was already open prior to the URI event, while a positive response should add the ID. If a DNS discovery ID is detected, a client should ask the user for the IDs pin if not provided. A client then follows DNS Discovery procedure to verify this, notifying the user if it is wrong. Afterwards, resolve this and ask the user if he wants to add said ID, showing the ID and email. As before, a negative response should close the client while a positive should add the ID. On a malformed ID the client should alert the user, closing the client after acknowledgement.
 
 #####BNF of Tox URI Scheme
@@ -57,7 +73,7 @@ It is recommended that client-specific query parameters prefix the key name with
 
 A set of URIs to test your implementation against can be found [here](https://kirara.ca/toxurl_testcases.html).
 
-##DNS Discovery (should be reworded)
+###DNS Discovery
 A DNS discovery ID goes in the following format: `user@domain`. Users should not enter a DNS discovery ID in any way they don't normally add a Tox ID, clients should be able to figure out what is what. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value `user._tox.domain`. In this case the `@` is replaced with `_tox`, allowing the use of subdomains while ensuring a record is a Tox record. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
 
 The `tox://` URI has 2 versions, tox1 and tox2. Tox2 attempts to stop dns request spamming and dns poisoning attacks by using the a form of the nospam as a unique pin. Use of tox1 is **depreciated**, and use is **strongly discouraged**. With this in mind, tox1 still serves the niche case of services like groupbot where a pin isn't needed.
@@ -90,7 +106,7 @@ In the case of multiple records clients should first look for the highest versio
 
 `<tox-id>` you get from toxcore, `<public-key>` and `<checksum>` can be taken from <tox-id> (more info [here](http://api.libtoxcore.so/core_concepts.html#the-tox-id)).
 
-###Domain signing
+####Domain signing
 Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records and turned in to base64 without the ==, where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records, and needs to be added to toxcore as a toxsign function for verifying. In tox1 the signature is of the ID, while in tox2 the signature is of the public key + checksum. With Domain signing, the public key is also stored in a txt record, using the format ```v=tox;pub={public key}```. Keep in mind, due to potential issues where the public key is the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
 
