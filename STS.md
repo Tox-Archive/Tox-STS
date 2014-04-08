@@ -48,9 +48,11 @@ The Tox Core allows for encrypted video and audio calling, as a well file sharin
 ###User Profile Encryption
 In order to prevent the threat of local data theft, all Tox clients should, however the method or implementation (including choice of crypto), provide a method to encrypt all local data. This is not STS-required, but heavily requested to keep the users of Tox safe. (under discussion)
 
-###NoSpam
-All Tox IDs have attached a small NoSpam (finish later)
+###NoSpam Changing
+All Tox IDs have attached a small NoSpam Key to prevent friend request spam. All clients should include a quick method of changing the NoSpam Key in the event of spam. This should never be done automatically, and should required explicit action from the user. For more information on what the NoSpam Key is, and what it does, visit our [API Docs](http://api.libtoxcore.so)
 
+
+~~~~~~~~~~~THIS SHOULD BE MOVED TO API DOCS AND LET ME (PROPLEX) EXPLAIN IT IN PLAIN ENGLISH~~~~~~~~~
 ##User Discovery
 ###Tox URI scheme
 The Tox URI scheme is as follows: `tox://`. A client must accept `{CLIENT_NAME} tox://{PASSED}`. A client must then check to see if this is a standard ID or DNS discovery ID. If this is a standard ID, a client should show the user the ID, asking if they want to add said ID, a negative response should close the client, unless the client was already open prior to the URI event, while a positive response should add the ID. If a DNS discovery ID is detected, a client should ask the user for the IDs pin if not provided. A client then follows DNS Discovery procedure to verify this, notifying the user if it is wrong. Afterwards, resolve this and ask the user if he wants to add said ID, showing the ID and email. As before, a negative response should close the client while a positive should add the ID. On a malformed ID the client should alert the user, closing the client after acknowledgement.
