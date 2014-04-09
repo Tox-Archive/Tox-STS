@@ -20,8 +20,8 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 
 ##User Identification & Interaction
 ###User Profiles
-- Users exchange a 76-character string that contains a public key, a nospam value, and a checksum to be used as an identifier. This is to be called the **Tox ID**. "User ID", "ID", and other derivatives are not valid and fail to follow the STS.
-- Users can set a **Nickname** or **Name** to present a quick way of identification once the friend request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in anyway. "Username", "Nick", and other derivatives are not valid and fail to follow the STS.
+- Users exchange a 76-character string that contains a public key, a nospam value, and a checksum to be used as an identifier. This is to be called the **Tox ID**.
+- Users can set a **Name** to present a quick way of identification once the friend request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in anyway.
 - Users may set a status, along with an optional message that allows for updates about life activities, current willingness to conversate, etc. This unit will be called the **Status**, and the three quick-statuses, usually selected via a drop-down menu, are to be  **"Online, Away, and Busy"** (Optional support for invisible). A field for a custom status message must also be offered.
 
 ###Friend Requests
