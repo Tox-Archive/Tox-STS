@@ -34,7 +34,7 @@ There are three fields a Tox client must offer when a user goes to add another. 
 | **Message** | Optional | The user can send a custom message to be displayed to the friend they're adding, either for identification purposes, or anything else.
 
 ###Friends List
-Each client should include a way to manage friend lists, including the ability to export and import lists *in a standard format (YET TO BE DECIDED)*. This will allow for users to switch clients and maintain backup copies. (Needs to be reworded)
+Each client should include a way to manage friend lists, including the ability to edit Nicknames, view last time a user has logged on, and perform various actions, such as friend deletion, etc.
 
 ###Group Messaging
 Tox allows for group messaging, where users may join a specified Tox ID and will be able to communicate in one "room". These are to be referred to as **Groupchats**. Clients will have a lot of leeway when it comes to the implementation of Groupchats, as each will offer a unique approach to it. However, they are a basic necessity and are required to be implemented, whatever the approach may be.
