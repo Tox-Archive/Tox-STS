@@ -5,8 +5,6 @@ Due to the nature of Tox, clients and other various services have the freedom to
 
 
 ##TODO:
-- Add sections about how friend requests should be handled
-- Add tox:// clause
 - Profile support
 - User blocking
-- Statues & updates
+- Avatar Support
