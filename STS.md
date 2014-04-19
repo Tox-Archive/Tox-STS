@@ -108,7 +108,17 @@ In the case of multiple records, clients should first look for the highest versi
 `<tox-id>` is obtained from toxcore, `<public-key>` and `<checksum>` can be taken from <tox-id> (more info [here](http://api.libtoxcore.so/core_concepts.html#the-tox-id)).
 
 ####Domain signing
-Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records and turned in to base64 without the ==, where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records, and needs to be added to toxcore as a toxsign function for verifying. In tox1 the signature is of the bytes form of the ID, while in tox2 the signature is of the bytes form of both the public key + checksum. With Domain signing, the public key is also stored in a txt record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
+Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records with a signature of the data of the record where this is compared to the known signing key for ao domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records.
+
+The signed data for Tox1 is the name of the record before the _tox + the id
+
+The signed data for Tox2 is the name of the record before the _tox + the public key + the ID.
+
+All data is signed in bytes, to preserve space.
+
+To validate this data a client would take the looked up user before the _tox and append it to the bytes version, comparing this to the output of the verifying function in NaCl. If this data is the same, the record is valid.
+
+With Domain signing, the public key is also stored in a txt record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
 ##
 
