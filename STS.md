@@ -110,9 +110,9 @@ In the case of multiple records, clients should first look for the highest versi
 ####Domain signing
 Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records with a signature of the data of the record where this is compared to the known signing key for ao domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records.
 
-The signed data for Tox1 is the name of the record before the _tox + the id
+- The signed data for Tox1 is the name of the record before the _tox + the id
 
-The signed data for Tox2 is the name of the record before the _tox + the public key + the ID.
+- The signed data for Tox2 is the name of the record before the _tox + the public key + the ID.
 
 All data is signed in bytes, to preserve space.
 
