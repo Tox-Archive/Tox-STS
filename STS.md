@@ -79,7 +79,7 @@ A DNS discovery ID goes in the following format: `user@domain`. Users should not
 
 The `tox://` URI has 2 versions, tox1 and tox2. Tox2 attempts to stop DNS request spamming and DNS poisoning attacks by using the a form of the nospam as a unique pin. Tox1 ignores these issues by listing just the Tox ID. Use of Tox1 for records of users is **strongly advised against**, as this version is reserved **solely for clients that do not interface with a human**, who need a well known and easy to add ID. With this in mind, tox1 still serves the niche case of services like GroupBot where a pin isn't needed.
 
-In the case of multiple records of different versions, clients should prioritise the highest version record and default to that. In the case of multiple records of the same priority, a client is free to choose the first one reported by the DNS lookup.
+In the case of multiple records of different versions, clients should prioritize the highest version record and default to that. In the case of multiple records of the same version, a client is free to choose the first one reported by the DNS lookup.
 
 | Tox1        | Tox2          |
 | ------------- |:-------------:|
