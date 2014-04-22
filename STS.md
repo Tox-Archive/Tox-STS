@@ -112,7 +112,7 @@ Domain signing is an extension of DNS Discovery designed to further ensure DNS D
 
 - The signed data for Tox1 is the name of the record before the _tox + the Tox ID
 
-- The signed data for Tox2 is the name of the record before the _tox + the public key + the Tox ID.
+- The signed data for Tox2 is the name of the record before the _tox + the public key + the check.
 
 All data is signed in bytes to preserve space.
 
