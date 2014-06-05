@@ -10,6 +10,8 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Friends List](#friends-list)
   * [Group Messaging](#group-messaging)
   * [Multimedia Messaging](#multimedia-messaging)
+  * [Emotes](#emotes)
+
 2. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
@@ -41,6 +43,11 @@ Tox allows for group messaging, where users may join a specified Tox ID and will
 
 ###Multimedia messaging
 The Tox Core allows for encrypted video and audio calling, as a well file sharing. All three services must be implemented to be considered STS-compliant, but as of writing, no client has all three. Implementing video is a difficult task, and in acknowledgement of this, the Single Tox Standard suggests a 'best-effort' approach to be in compliance with this section.
+
+###Emotes
+Emotes pack used in clients should be at most a 1:1 map of Unicode ones: http://pastebin.com/raw.php?i=n8Vgy352
+There cannot be an emote implemented that doesn't have an unicode correspondent.
+Emotes should have identical commands for when you change clients. :-) for a "happy face", for example, should be standardized (full list of this to be created)
 
 
 ##User Safety
