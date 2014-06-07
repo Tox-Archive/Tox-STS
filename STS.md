@@ -10,7 +10,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Friends List](#friends-list)
   * [Group Messaging](#group-messaging)
   * [Multimedia Messaging](#multimedia-messaging)
-  * [emoticons](#emoticons)
+  * [Emoticons](#emoticons)
 2. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
