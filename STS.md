@@ -10,6 +10,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Friends List](#friends-list)
   * [Group Messaging](#group-messaging)
   * [Multimedia Messaging](#multimedia-messaging)
+  * [emoticons](#emoticons)
 2. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
@@ -42,6 +43,8 @@ Tox allows for group messaging, where users may join a specified Tox ID and will
 ###Multimedia messaging
 The Tox Core allows for encrypted video and audio calling, as a well file sharing. All three services must be implemented to be considered STS-compliant, but as of writing, no client has all three. Implementing video is a difficult task, and in acknowledgement of this, the Single Tox Standard suggests a 'best-effort' approach to be in compliance with this section.
 
+###Emoticons
+While toxcore supports Unicode, user support varies. Emoticons will follow the following format: ``` %`:)` ```. This is percent, backtick, an emotion, and a closing backtick. This format was chosen to ensure that no existing code someone might be sending someone would get turned in to a picture, unlike other programs who use the emotion alone. If a emotion is valid a client who supports displaying emotions will display the correct one, on a client who does not the emotion alone will be displayed. On a later date a list of valid emotions will be created, letting clients easily share *emoticon packs*.
 
 ##User Safety
 
