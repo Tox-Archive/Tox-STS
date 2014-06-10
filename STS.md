@@ -44,7 +44,10 @@ Tox allows for group messaging, where users may join a specified Tox ID and will
 The Tox Core allows for encrypted video and audio calling, as a well file sharing. All three services must be implemented to be considered STS-compliant, but as of writing, no client has all three. Implementing video is a difficult task, and in acknowledgement of this, the Single Tox Standard suggests a 'best-effort' approach to be in compliance with this section.
 
 ###Emoticons
-While toxcore supports Unicode, user support varies. Emoticons will follow the following format: ``` %`:)` ```. This is percent, backtick, an emotion, and a closing backtick. This format was chosen to ensure that no existing code someone might be sending someone would get turned in to a picture, unlike other programs who use the emotion alone. If a emotion is valid a client who supports displaying emotions will display the correct one, on a client who does not the emotion alone will be displayed. On a later date a list of valid emotions will be created, letting clients easily share *emoticon packs*. If a emoticon does not exist a client will show the emotion alone.
+While toxcore supports Unicode, user support varies.
+Sending clients, and only the sending clients, are responsible for transforming recognized text sequences into Unicode emoji characters.  
+
+Receiving clients shall display the received text without applying further transformations to received text. If Unicode emoji characters are not supported on the receiving side, it's time to invest in a better text rendering system.
 
 ##User Safety
 
