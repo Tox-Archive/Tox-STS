@@ -22,8 +22,9 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 ##User Identification & Interaction
 ###User Profiles
 - Users exchange a 76-character string containing hexadecimal representations of a public key, a nospam value, and a checksum to be used as an identifier. This is to be called the **Tox ID**.
-- Users can set a **Name** which offers a simpler means of identification once the friend request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in any way.
-- Users may set a status, along with an optional message that allows for updates about life activities, current willingness to converse, etc. This unit will be called the **Status**, and the three quick-statuses, usually selected via a drop-down menu, are to be  **"Online, Away, and Busy"** (Optional support for invisible). A field for a custom status message must also be offered.
+- Users may set a **Name** which offers a simpler means of identification once the friend request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in any way.
+- Users may set a **Status**. The three statuses are **"Online, Away, and Busy"**.
+- Users may set a **Status message** , which is an arbitrary string of text that allows for updates about life activities, current willingness to converse, etc.
 
 ###Friend Requests
 There are three fields a Tox client must offer when a user goes to add another. While two of these fields are optional for the end-user to fill out, it is required that Tox clients provide all three fields in the UI. These are, and should be labeled as, as follows:
