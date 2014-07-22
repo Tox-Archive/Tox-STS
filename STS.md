@@ -61,25 +61,13 @@ All Tox IDs have attached a small NoSpam Key to prevent friend request spam. All
 
 ##User Discovery
 ###Tox URI scheme
-The Tox URI scheme is as follows: `tox://`. A client must accept `{CLIENT_NAME} tox://{PASSED}`. A client must then check to see if this is a standard ID or DNS discovery ID. If this is a standard ID, a client should show the user the ID, asking if they want to add said ID. A negative response should close the client (unless the client was already open prior to the URI event), while an affirmative response should add the ID. If a DNS discovery ID is detected, a client should ask the user for the IDs pin if not provided. A client then follows DNS Discovery procedure to verify this, notifying the user if it is wrong. Having resolved this, the user should be asked whether he wishes to add the ID, showing the ID and email. As before, a negative response should close the client while a positive should add the ID. If the ID is malformed, the client should alert the user, closing the client after acknowledgement.
+The Tox URI scheme is as follows: `tox:`. A client must accept `{CLIENT_NAME} tox:{PASSED}`. A client must then check to see if this is a standard ID or DNS discovery ID. If this is a standard ID, a client should show the user the ID, asking if they want to add said ID. A negative response should close the client (unless the client was already open prior to the URI event), while an affirmative response should add the ID. If a DNS discovery ID is detected, a client should resolve this. A client then follows DNS Discovery procedure to verify this, notifying the user if it is wrong. Having resolved this, the user should be asked whether he wishes to add the ID. As before, a negative response should close the client while a positive should add the ID. If the ID is malformed, the client should alert the user, closing the client after acknowledgement.
 
 #####BNF of Tox URI Scheme
 ```
-<uri-scheme> ::= "tox://" <tox-id> "?" <key> = <value> "&" <key> = <value>
+<uri-scheme> ::= "tox:" <tox-id>
+<uri-scheme> ::= "tox:" <tox user>@<domain>
 ```
-Note that information after the `<tox-id>` is optional.
-
-Additionally, a query string may be attached to the URI, containing auxiliary information such as a pre-defined message, or a PIN (see DNS Discovery below). Clients **must** ignore any unknown key/value pairs.
-
-| Key         | Support required? | Notes                                                              |
-| ----------- | ----------------- | ------------------------------------------------------------------ |
-| `message`   | Recommended       | Use this value to fill in the Message field of the friend request. |
-| `pin    `   | Recommended       | Only in DNS Discovery format. If it is not a valid PIN for the version of the record, ignore it. |
-| `x-name `   | No                | Use this value to pre-set a custom name for the added user.        |
-
-It is recommended that client-specific query parameters prefix the key name with an "x" (e.g. `tox://james@nsa.gov?x-gov-employee-id=11925334`).
-
-A set of URIs to test your implementation against can be found [here](https://kirara.ca/toxurl_testcases.html).
 
 ###DNS Discovery
 A DNS discovery ID goes in the following format: `user@domain`. Users should not enter a DNS discovery ID in any way differently to adding a Tox ID - clients should be capable of identifying whether the input is a DNS discovery ID or a Tox ID. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value `user._tox.domain.`. Note the end dot. In this case the `@` is replaced with `_tox`, allowing the use of subdomains while ensuring a record is a Tox record. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
