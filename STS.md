@@ -63,7 +63,7 @@ Clients should split messages at the last whitespace character closest to ``TOX_
 - The data after the whitespace character is appended to the rest of the message
 - the client repeats step 3 until the bytes left is under ``TOX_MAX_MESSAGE_LENGTH``
 - The UI on the sender would show a new sent message for each broken section so they are aware.
-- The recieving client gets multiple seperate messages like normal and display them normally.
+- The recieving client gets multiple seperate messages like normal and displays them normally.
 
 ##User Safety
 
