@@ -17,6 +17,9 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 3. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
+4. Client paths
+  * [Tox data file](#tox-data-file)
+  * [Logging](#logging)
 
 
 ##User Identification & Interaction
@@ -72,7 +75,7 @@ The Tox URI scheme is as follows: `tox:`. A client must accept `{CLIENT_NAME} to
 ###DNS Discovery
 A DNS discovery ID goes in the following format: `user@domain`. Users should not enter a DNS discovery ID in any way differently to adding a Tox ID - clients should be capable of identifying whether the input is a DNS discovery ID or a Tox ID. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value `user._tox.domain.`. Note the end dot. In this case the `@` is replaced with `_tox`, allowing the use of subdomains while ensuring a record is a Tox record. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
 
-The `tox://` URI has 2 versions, tox1 and tox2. Tox2 attempts to stop DNS request spamming and DNS poisoning attacks by using the a form of the nospam as a unique pin. Tox1 ignores these issues by listing just the Tox ID. Use of Tox1 for records of users is **strongly advised against**, as this version is reserved **solely for clients that do not interface with a human**, who need a well known and easy to add ID. With this in mind, tox1 still serves the niche case of services like GroupBot where a pin isn't needed.
+The `tox://` URI has 3 versions, tox1, tox2, and tox3. Tox3 is encrypted, though doesn't work with standard DNS servers and is hard to setup. Tox2 attempts to stop DNS request spamming and DNS poisoning attacks by using the a form of the nospam as a unique pin. Tox1 ignores these issues by listing just the Tox ID.
 
 In the case of multiple records of different versions, clients should prioritize the highest version record. If there are more than one record of the same version, a client should use the first one in the order reported by the DNS lookup.
 
@@ -102,6 +105,31 @@ In the case of multiple records of different versions, clients should prioritize
 
 `<tox-id>` is obtained from toxcore, `<public-key>` and `<checksum>` can be taken from <tox-id> (more info [here](http://api.libtoxcore.so/core_concepts.html#the-tox-id)).
 
+#####Tox3 details
+Tox3 uses toxdns in clients to do encryption/decryption. Clients get the server public key used in tox3 from ``_tox.<domain>``. This is in the following format: ```v=tox;pub={public key}```
+
+######raw details:
+request:
+[4 byte nonce][temporary client public key][encrypted with crypto_box(temporary client public key, server long term public key, 4 byte nonce + 20 byte zeros)[queried username]]
+ 
+-> base32 (a to z, 0 to 5) -> separate with . as needed.
+ 
+Notes:
+-the temporary public key is a public key temporarily generated that is discarded right after the session is.
+-4 byte nonce must be increased by 1 on every request (it must not be generated randomly because birthday problem)
+-every 2^32 requests (if that ever happens) the temporary client public key must be changed 
+(two requests with the same nonce must never ever happen.)
+ 
+response:
+DNS TXT record:
+[encrypted with crypto_box(temporary client public key, server long term public key, 4 byte nonce(sent in request) + 1 byte equal to 1 and 19 bytes of zeros (this is the same 4 byte nonce that was sent in the request))[Tox id (binary format)]]
+ 
+-> base32 (same as above)
+ 
+Possible issues with this:
+-no PFS (find some way of making the server change its key every couple of days maybe?)
+-clients need a local list of tox dns server long term public keys.
+
 ####Domain signing
 Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records with a signature of the data of the record where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records.
 
@@ -117,6 +145,18 @@ With Domain signing, the public key is also stored in a txt record, using the fo
 
 ##
 
+##Client paths/formats
+###Tox data file
+
+The path for Tox data files on Windows is ``%APPDATA%/tox/data``
+
+The path for Tox data files on Linux is ``~/.config/tox/data``
+
+This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
+
+###Logging
+
+Discussion in progress
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
