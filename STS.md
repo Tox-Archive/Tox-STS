@@ -11,6 +11,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Group Messaging](#group-messaging)
   * [Multimedia Messaging](#multimedia-messaging)
   * [Emoticons](#emoticons)
+  * [Message splitting](#message-splitting)
 2. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
@@ -52,6 +53,14 @@ While toxcore supports Unicode, user support varies.
 Sending clients, and only the sending clients, are responsible for transforming recognized text sequences into Unicode emoji characters.  
 
 Receiving clients shall display the received text without applying further transformations to received text. If Unicode emoji characters are not supported on the receiving side, it's time to invest in a better text rendering system.
+
+###Message splitting
+Clients should split messages every ``TOX_MAX_MESSAGE_LENGTH`` (Currently 1368) characters. This goes as follows:
+- user enters over ``TOX_MAX_MESSAGE_LENGTH`` characters in a text box.
+- Text box follows with this unless it has some restrictions or breaks the UI scaling.
+- Message is split at every ``TOX_MAX_MESSAGE_LENGTH`` btyes and sent as normal.
+- The UI on the sender would show a new sent message for each broken section so they are aware.
+- The recieving client gets multiple seperate messages like normal and displays them normally.
 
 ##User Safety
 
