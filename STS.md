@@ -87,19 +87,19 @@ The Tox URI scheme is as follows: `tox:`. A client must accept `{CLIENT_NAME} to
 ###DNS Discovery
 A DNS discovery ID goes in the following format: `user@domain`. Users should not enter a DNS discovery ID in any way differently to adding a Tox ID - clients should be capable of identifying whether the input is a DNS discovery ID or a Tox ID. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value `user._tox.domain.`. Note the end dot. In this case the `@` is replaced with `_tox`, allowing the use of subdomains while ensuring a record is a Tox record. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
 
-The `tox://` URI has 3 versions, tox1, tox2, and tox3. Tox3 is encrypted, though doesn't work with standard DNS servers and is hard to setup. Tox2 attempts to stop DNS request spamming and DNS poisoning attacks by using the a form of the nospam as a unique pin. Tox1 ignores these issues by listing just the Tox ID.
+The `tox:` URI has 3 versions, tox1, tox2, and tox3. Tox3 is encrypted, though doesn't work with standard DNS servers and is hard to setup. Tox2 attempts to stop DNS request spamming and DNS poisoning attacks by using the a form of the nospam as a unique pin. Tox1 ignores these issues by listing just the Tox ID.
 
 In the case of multiple records of different versions, clients should prioritize the highest version record. If there are more than one record of the same version, a client should use the first one in the order reported by the DNS lookup.
 
 | Tox1        | Tox2          |
 | ------------- |:-------------:|
-| The value of a Tox DNS record goes `v=version;id=Tox ID`, where the version is tox1, and id is the users Tox ID. A client then follows the standard `tox://` scheme. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.      | The value of a Tox DNS record goes `v=version;pub=public key;check=checksum`, where the version is tox2, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends `==` to it, converts it from base64 to hexadecimal, and XOR's this against the key, checking it against the checksum to verify. |
+| The value of a Tox DNS record goes `v=version;id=Tox ID`, where the version is tox1, and id is the users Tox ID. A client then follows the standard `tox:` scheme. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.      | The value of a Tox DNS record goes `v=version;pub=public key;check=checksum`, where the version is tox2, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends `==` to it, converts it from base64 to hexadecimal, and XOR's this against the key, checking it against the checksum to verify. |
 
 
 #####BNF of Tox DNS URI Scheme v1 and v2
 
 ```
-<dns-uri-scheme> ::= "tox://" <user> "@" <domain>
+<dns-uri-scheme> ::= "tox:" <user> "@" <domain>
 ```
 
 #####BNF of DNS Record v1 and v2
