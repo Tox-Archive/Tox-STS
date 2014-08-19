@@ -12,6 +12,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Multimedia Messaging](#multimedia-messaging)
   * [Emoticons](#emoticons)
   * [Message splitting](#message-splitting)
+  * [Avatars](#avatars)
 2. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
@@ -64,6 +65,16 @@ Clients should split messages at the last whitespace character closest to ``TOX_
 - the client repeats step 3 until the bytes left is under ``TOX_MAX_MESSAGE_LENGTH``
 - The UI on the sender would show a new sent message for each broken section so they are aware.
 - The recieving client gets multiple seperate messages like normal and displays them normally.
+
+###Avatars
+An avatar is a thumbnail style png image of under 1 MB displayed near a name on a chat and in notifications. Avatars are done client side through file transfers. If no avatar is known for a user a placeholder image is used. In order to send an avatar to someone a client would do the following:
+
+- send a png named ``__avatar.png`` (This is two _'s) of no more than 1 MB. 
+- The other client would accept it automatically without prompting the user. 
+- If the image is over 1 MB the file trasnfer would not be accepted/completed. 
+- Upon finishing the transfer the other client would attempt to render it, displaying a thumbnail if it fails.
+ 
+If a client has an avatar saved it would display it. On starting a Tox client a client would attempt to send its avatar to each one of its friends. Upon setting a new avatar it would be sent to each one of its friends as well. If a new friend is added or comes online an avatar would be sent to him as soon as possible.
 
 ##User Safety
 
