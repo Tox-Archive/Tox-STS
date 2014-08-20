@@ -171,11 +171,8 @@ With Domain signing, the public key is also stored in a txt record, using the fo
 ##Client paths/formats
 ###Tox data file
 
-The path for Tox data files on Windows is ``%APPDATA%/tox/data``
+It is recommended that the tox data file, ``tox_save``, be located on both the running directory, for portable use of the Tox client, and ``~/.config/tox/`` (Linux) or ``%APPDATA%/tox/`` (Windows), for persistent installations.
 
-The path for Tox data files on Linux is ``~/.config/tox/data``
-
-This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
 
 ###Logging
 
