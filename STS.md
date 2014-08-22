@@ -59,19 +59,19 @@ Receiving clients shall display the received text without applying further trans
 Clients should split messages at the last whitespace character closest to ``TOX_MAX_MESSAGE_LENGTH`` (Currently 1368) characters. Whitespace character(s) are(is) `` `` (most symbols end with a space). An example of this follows:
 - user enters over ``TOX_MAX_MESSAGE_LENGTH`` characters in a text box.
 - Text box follows with this unless it has some restrictions or breaks the UI scaling.
-- CLient splits message at ``TOX_MAX_MESSAGE_LENGTH`` and searches backwards for the next whitespace character.
+- Client splits message at ``TOX_MAX_MESSAGE_LENGTH`` and searches backwards for the next whitespace character.
 - The data between the start of the set of bytes and the whitespace character are sent
 - The data after the whitespace character is appended to the rest of the message
 - the client repeats step 3 until the bytes left is under ``TOX_MAX_MESSAGE_LENGTH``
 - The UI on the sender would show a new sent message for each broken section so they are aware.
-- The recieving client gets multiple seperate messages like normal and displays them normally.
+- The receiving client gets multiple separate messages like normal and displays them normally.
 
 ###Avatars
 An avatar is a thumbnail style png image of under 1 MB displayed near a name on a chat and in notifications. Avatars are done client side through file transfers. If no avatar is known for a user a placeholder image is used. In order to send an avatar to someone a client would do the following:
 
 - send a png named ``__avatar.png`` (This is two _'s) of no more than 1 MB. 
 - The other client would accept it automatically without prompting the user. 
-- If the image is over 1 MB the file trasnfer would not be accepted/completed. 
+- If the image is over 1 MB the file transfer would not be accepted/completed. 
 - Upon finishing the transfer the other client would attempt to render it, displaying a thumbnail if it fails.
  
 If a client has an avatar saved it would display it. On starting a Tox client a client would attempt to send its avatar to each one of its friends. Upon setting a new avatar it would be sent to each one of its friends as well. If a new friend is added or comes online an avatar would be sent to him as soon as possible.
@@ -138,9 +138,10 @@ request:
 -> base32 (a to z, 0 to 5) -> separate with . as needed.
  
 Notes:
--the temporary public key is a public key temporarily generated that is discarded right after the session is.
--4 byte nonce must be increased by 1 on every request (it must not be generated randomly because birthday problem)
--every 2^32 requests (if that ever happens) the temporary client public key must be changed 
+
+- the temporary public key is a public key temporarily generated that is discarded right after the session is.
+- 4 byte nonce must be increased by 1 on every request (it must not be generated randomly because birthday problem)
+- every 2^32 requests (if that ever happens) the temporary client public key must be changed 
 (two requests with the same nonce must never ever happen.)
  
 response:
@@ -150,11 +151,12 @@ DNS TXT record:
 -> base32 (same as above)
  
 Possible issues with this:
--no PFS (find some way of making the server change its key every couple of days maybe?)
--clients need a local list of tox dns server long term public keys.
+
+- no PFS (find some way of making the server change its key every couple of days maybe?)
+- clients need a local list of tox dns server long term public keys.
 
 ####Domain signing
-Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records with a signature of the data of the record where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCL to sign and verify records.
+Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records with a signature of the data of the record where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCl to sign and verify records.
 
 - The signed data for Tox1 is the name of the record before the _tox + the Tox ID
 
@@ -164,7 +166,7 @@ All data is signed in bytes to preserve space.
 
 To validate this data a client would take the looked up user before the _tox and append it to the bytes version, comparing this to the output of the verifying function in NaCl. If this data is the same, the record is valid.
 
-With Domain signing, the public key is also stored in a txt record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
+With Domain signing, the public key is also stored in a TXT record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
 ##
 
@@ -175,7 +177,7 @@ The path for Tox data files on Windows is ``%APPDATA%/tox/data``
 
 The path for Tox data files on Linux is ``~/.config/tox/data``
 
-This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
+This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without losing friends and IDs.
 
 ###Logging
 
