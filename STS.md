@@ -12,7 +12,6 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Multimedia Messaging](#multimedia-messaging)
   * [Emoticons](#emoticons)
   * [Message splitting](#message-splitting)
-  * [Avatars](#avatars)
 2. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
@@ -65,7 +64,6 @@ Clients should split messages at the last whitespace character closest to ``TOX_
 - the client repeats step 3 until the bytes left is under ``TOX_MAX_MESSAGE_LENGTH``
 - The UI on the sender would show a new sent message for each broken section so they are aware.
 - The recieving client gets multiple seperate messages like normal and displays them normally.
-
 
 ##User Safety
 
