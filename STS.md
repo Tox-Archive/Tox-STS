@@ -12,7 +12,6 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Multimedia Messaging](#multimedia-messaging)
   * [Emoticons](#emoticons)
   * [Message splitting](#message-splitting)
-  * [Avatars](#avatars)
 2. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
