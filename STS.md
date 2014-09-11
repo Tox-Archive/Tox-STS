@@ -19,7 +19,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
 4. Client paths
-  * [Tox data file](#tox-data-file)
+  * [Tox save file](#tox-save-file)
   * [Logging](#logging)
 
 
@@ -159,13 +159,13 @@ With Domain signing, the public key is also stored in a txt record, using the fo
 ##
 
 ##Client paths/formats
-###Tox data file
+###Tox save file
 
-In both cases, please note 'data' is the name of the tox save file and not a directory
+In both cases, please note 'tox_save' is the name of the tox save file and not a directory
 
-The path for Tox data files on Windows is ``%APPDATA%/tox/data`` 
+The path for Tox save file on Windows is ``%APPDATA%/tox/tox_save`` 
 
-The path for Tox data files on Linux is ``~/.config/tox/data`` 
+The path for Tox save file on Linux is ``~/.config/tox/tox_save`` 
 
 This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
 
