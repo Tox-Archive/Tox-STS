@@ -169,6 +169,8 @@ The path for Tox save file on Linux is ``~/.config/tox/tox_save``
 
 This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
 
+All clients should have a portable mode: a way of saving and loading the tox_save file from the current working directory.
+
 ###Logging
 
 Discussion in progress
