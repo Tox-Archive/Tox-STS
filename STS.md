@@ -46,7 +46,7 @@ Each client should include a way to manage friend lists, including the ability t
 Tox allows for group messaging, where users may join a specified Tox ID and will be able to communicate in one "room". These are to be referred to as **Groupchats**. Clients will have a lot of leeway when it comes to the implementation of Groupchats, as each will offer a unique approach to it. However, they are a basic necessity and are required to be implemented, whatever the approach may be.
 
 ###Multimedia messaging
-A/V support is mandatory in all clients unless the platform does not support it. (EX: video support isn't neccessary for CLI clients.) Delays must be acceptable. Clients that have trouble keeping audio and video in perfect sync with each other or that add unacceptable delays to audio or video are not acceptable.
+A/V support is mandatory in all clients unless the platform does not support it. (EX: video support isn't neccessary for CLI clients.) Developers should strive to reduce delay as much as possible. Clients that have trouble keeping audio and video in perfect sync with each other or that add unacceptable latency to audio or video are not acceptable.
 
 ###Emoticons
 While toxcore supports Unicode, user support varies.
