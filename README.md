@@ -5,6 +5,4 @@ Due to the nature of Tox, clients and other various services have the freedom to
 
 
 ##TODO:
-- Profile support
 - User blocking
-- Avatar Support
