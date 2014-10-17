@@ -12,19 +12,24 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Multimedia Messaging](#multimedia-messaging)
   * [Emoticons](#emoticons)
   * [Message splitting](#message-splitting)
-2. User Safety
+2. Client paths
+  * [Tox data directory](#tox-data-directory)
+  * [Logging](#logging)
+3. [User profiles](#user-profiles)
+  * [Profile management](#profile-management)
+  * [Recommendations](#recommendations-regarding-profile-management)
+4. [Avatars](#avatars)
+5. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
-3. User Discovery
+5. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
-4. Client paths
-  * [Tox save file](#tox-save-file)
-  * [Logging](#logging)
+
 
 
 ##User Identification & Interaction
-###User Profiles
+###The Tox ID
 - Users exchange a 76-character string containing hexadecimal representations of a public key, a nospam value, and a checksum to be used as an identifier. This is to be called the **Tox ID**.
 - Users may set a **Name** which offers a simpler means of identification once the friend request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in any way.
 - Users may set a **Status**. The three statuses are **"Online, Away, and Busy"**.
@@ -65,6 +70,19 @@ Clients should split messages at the last whitespace character closest to ``TOX_
 - The UI on the sender would show a new sent message for each broken section so they are aware.
 - The recieving client gets multiple seperate messages like normal and displays them normally.
 
+##Client paths/formats
+###Tox data directory
+
+The path for Tox data on Windows is ``%APPDATA%/tox/`` (should this be roaming app data?)
+
+The path for Tox data on Linux is ``~/.config/tox/`` 
+
+This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
+
+
+###Logging
+
+Discussion in progress
 
 ##User Safety
 
@@ -74,6 +92,26 @@ In order to prevent the threat of local data theft, all Tox clients should, howe
 ###NoSpam Changing
 All Tox IDs have attached a small NoSpam Key to prevent friend request spam. All clients should include a quick method of changing the NoSpam Key in the event of spam. This should never be done automatically, and should require an explicit action from the user. For more information on what the NoSpam Key is, and what it does, visit our [API Docs](https://libtoxcore.so)
 
+
+##User profiles
+
+The Tox ID and its associated friends list and save file is called a profile. Save files should use the ".tox" extension to denote that they are Tox save files; clients should recognize .tox save files, preferably via integration with the operating system. That way, merely by double clicking a .tox file, the client will import the file for use. Here, import means copy the file into the data directory (see "Tox data directory" below). When talking about a profile's name, we mean the base name of the file.
+
+###Profile management
+
+Clients should be able to track more than one Tox ID (i.e., its save file) in the same data directory. Clients should thus offer the ability to switch profiles (i.e., disconnect from the network, load a different profile, and reconnect), as well as import, rename, export, and delete profiles. These operations are relative to the data directory: importing means copying a file to the data directory, exporting means allowing the user to save a profile in a location of their choice, and deleting means removing the profile from the data directory. Together, these operations make it easy for a user to share a Tox ID and friend's list among whatever devices he or she uses.
+
+###Recommendations regarding profile management
+
+Clients should encourage good user habits.
+1) Warn the user when they are about to export an unencrypted profile
+2) Warn the user when they are about to delete a profile currently in use
+
+Clients on operating systems where accessing the file system directly is difficult should integrate with that OS's means of sharing files, by e.g. offering to attach a profile to an email (where warning 1 applies).
+
+##Avatars
+
+See https://github.com/irungentoo/toxcore/blob/master/docs/Avatars.md#using-avatars-in-client-applications
 
 ##User Discovery
 ###Tox URI scheme
@@ -158,22 +196,7 @@ With Domain signing, the public key is also stored in a txt record, using the fo
 
 ##
 
-##Client paths/formats
-###Tox save file
 
-In both cases, please note 'tox_save' is the name of the tox save file and not a directory
-
-The path for Tox save file on Windows is ``%APPDATA%/tox/tox_save`` 
-
-The path for Tox save file on Linux is ``~/.config/tox/tox_save`` 
-
-This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
-
-All clients should have a portable mode: a way of saving and loading the tox_save file from the current working directory.
-
-###Logging
-
-Discussion in progress
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
