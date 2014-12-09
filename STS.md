@@ -157,7 +157,7 @@ In the case of multiple records of different versions, clients should prioritize
 `<tox-id>` is obtained from toxcore, `<public-key>` and `<checksum>` can be taken from <tox-id> (more info [here](http://api.libtoxcore.so/core_concepts.html#the-tox-id)).
 
 #####Tox3 details
-Tox3 uses toxdns in clients to do encryption/decryption. Clients get the server public key used in tox3 from ``_tox.<domain>``. This is in the following format: ```v=tox;pub={public key}```
+Tox3 uses toxdns in clients to do encryption/decryption. Clients get the server public key used in tox3 from ``_tox.<domain>``. This is in the following format: ```{public key}```
 
 ######raw details:
 request:
