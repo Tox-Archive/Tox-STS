@@ -12,6 +12,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Multimedia Messaging](#multimedia-messaging)
   * [Emoticons](#emoticons)
   * [Message splitting](#message-splitting)
+  * [Encodings](#encodings)
 2. Client paths
   * [Tox data directory](#tox-data-directory)
   * [Logging](#logging)
@@ -69,6 +70,12 @@ Clients should split messages at the last whitespace character closest to ``TOX_
 - the client repeats step 3 until the bytes left is under ``TOX_MAX_MESSAGE_LENGTH``
 - The UI on the sender would show a new sent message for each broken section so they are aware.
 - The recieving client gets multiple seperate messages like normal and displays them normally.
+
+###Encoding of messages
+All messages sent over Tox should be encoded in UTF-8. While clients can not expect that all data they receive is encoded in UTF-8, they should do one of the following when receiving non-UTF-8 messages:
+- Discard the received message completely
+- Attempt to guess the encoding and re-encode as UTF-8 before showing the message to the user.
+If a user enters non-UTF-8 messages core should re-encode them as far as possible, using the unicode replacement character (U+FFFD) for characters they cannot encode.
 
 ##Client paths/formats
 ###Tox data directory
