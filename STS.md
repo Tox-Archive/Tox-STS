@@ -215,18 +215,16 @@ With Domain signing, the public key is also stored in a TXT record, using the fo
 ##
 
 
-<<<<<<< HEAD
 =======
-The path for Tox data files on Windows is ``%APPDATA%/tox/data``
+The path for Tox data files on Windows is ``%APPDATA%/tox``
 
-The path for Tox data files on Linux is ``~/.config/tox/data``
+The path for Tox data files on Linux is ``~/.config/tox``
 
 This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without losing friends and IDs.
 
 ###Logging
 
 Discussion in progress
->>>>>>> 5067fe5... Update STS.md
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
