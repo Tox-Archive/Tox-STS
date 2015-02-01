@@ -1,4 +1,4 @@
-Single Tox Standard Draft v.0.1.0
+Single Tox Standard Draft v.0.1.0 (rev 1)
 ===
 As Tox grows and more clients are created, we feel it is time to  create a Tox standard. Doing so will enable us to promote a single, cohesive brand despite the numerous clients. STS aims to offer a handbook for existing and potential client developers to follow so they can all remain consistent, yet unique in their own way. This will prevent confusion for users who wish to switch clients, and allow Tox to focus on pushing a single brand. At the moment, we are strongly recommending adherence to the STS, as it will foster a more productive environment, but we recognize that it's the right of the developer to choose.
 
@@ -15,19 +15,18 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Encodings](#encodings)
 2. Client paths
   * [Tox data directory](#tox-data-directory)
-  * [Logging](#logging)
 3. [User profiles](#user-profiles)
   * [Profile management](#profile-management)
   * [Recommendations](#recommendations-regarding-profile-management)
 4. [Avatars](#avatars)
 5. User Safety
-  * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
 5. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
-
-
+6. [Pending changes](#pending-changes)
+  * [User Profile Encryption](#user-profile-encryption)
+  * [Logging](#logging)
 
 ##User Identification & Interaction
 ###The Tox ID
@@ -79,43 +78,24 @@ If a user enters non-UTF-8 messages core should re-encode them as far as possibl
 
 ##Client paths/formats
 ###Tox data directory
-
 The path for Tox data on Windows is ``%APPDATA%/tox/`` (should this be roaming app data?)
 
 The path for Tox data on Linux is ``~/.config/tox/`` 
 
 This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
 
-
-###Logging
-
-Discussion in progress
-- send a png named ``__avatar.png`` (This is two _'s) of no more than 1 MB. 
-- The other client would accept it automatically without prompting the user. 
-- If the image is over 1 MB the file transfer would not be accepted/completed. 
-- Upon finishing the transfer the other client would attempt to render it, displaying a thumbnail if it fails.
- 
-If a client has an avatar saved it would display it. On starting a Tox client a client would attempt to send its avatar to each one of its friends. Upon setting a new avatar it would be sent to each one of its friends as well. If a new friend is added or comes online an avatar would be sent to him as soon as possible.
-
 ##User Safety
-
-###User Profile Encryption
-In order to prevent the threat of local data theft, all Tox clients should, however the method or implementation (including choice of crypto), provide a method to encrypt all local data. This is not STS-required, but heavily suggested in order to keep the users of Tox safe. (under discussion)
-
 ###NoSpam Changing
 All Tox IDs have attached a small NoSpam Key to prevent friend request spam. All clients should include a quick method of changing the NoSpam Key in the event of spam. This should never be done automatically, and should require an explicit action from the user. For more information on what the NoSpam Key is, and what it does, visit our [API Docs](https://libtoxcore.so)
 
 
 ##User profiles
-
 The Tox ID and its associated friends list and save file is called a profile. Save files should use the ".tox" extension to denote that they are Tox save files; clients should recognize .tox save files, preferably via integration with the operating system. That way, merely by double clicking a .tox file, the client will import the file for use. Here, import means copy the file into the data directory (see "Tox data directory" below). When talking about a profile's name, we mean the base name of the file.
 
 ###Profile management
-
 Clients should be able to track more than one Tox ID (i.e., its save file) in the same data directory. Clients should thus offer the ability to switch profiles (i.e., disconnect from the network, load a different profile, and reconnect), as well as import, rename, export, and delete profiles. These operations are relative to the data directory: importing means copying a file to the data directory, exporting means allowing the user to save a profile in a location of their choice, and deleting means removing the profile from the data directory. Together, these operations make it easy for a user to share a Tox ID and friend's list among whatever devices he or she uses.
 
 ###Recommendations regarding profile management
-
 Clients should encourage good user habits.
 1) Warn the user when they are about to export an unencrypted profile
 2) Warn the user when they are about to delete a profile currently in use
@@ -123,7 +103,6 @@ Clients should encourage good user habits.
 Clients on operating systems where accessing the file system directly is difficult should integrate with that OS's means of sharing files, by e.g. offering to attach a profile to an email (where warning 1 applies).
 
 ##Avatars
-
 See https://github.com/irungentoo/toxcore/blob/master/docs/Avatars.md#using-avatars-in-client-applications
 
 ##User Discovery
@@ -149,13 +128,11 @@ In the case of multiple records of different versions, clients should prioritize
 
 
 #####BNF of Tox DNS URI Scheme v1 and v2
-
 ```
 <dns-uri-scheme> ::= "tox:" <user> "@" <domain>
 ```
 
 #####BNF of DNS Record v1 and v2
-
 ```
 <dns-record-format> ::= <dns-record-type> " " <dns-record-name> "=" <dns-record-value>
 <dns-record-type> ::= "TXT"
@@ -207,17 +184,31 @@ To validate this data a client would take the looked up user before the _tox and
 
 With Domain signing, the public key is also stored in a TXT record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
-##
-
 The path for Tox data files on Windows is ``%APPDATA%/tox``
 
 The path for Tox data files on Linux is ``~/.config/tox``
 
 This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without losing friends and IDs.
 
-###Logging
-
-Discussion in progress
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
+
+
+## Pending changes to the STS
+The Single Tox Standard is created with heavy infulence from Tox community consensus. The following are proposed changes to the STS that are still have active discussion in progress. Want to have a voice? Join IRC [#tox-dev](irc://irc.freenode.net/tox-dev) on freenode.net and start asking questions.
+
+### User Saftey / User Profile Encryption
+> Discussion in progress
+
+In order to prevent the threat of local data theft all Tox clients should offer a method to encrypt local data. Forcing data encryption or defaulting to encrypted data is not STS-required, but strongly suggested from to keep Tox data safe.
+
+###Logging
+> Discussion in progress
+
+- send a png named ``__avatar.png`` (This is two _'s) of no more than 1 MB. 
+- The other client would accept it automatically without prompting the user. 
+- If the image is over 1 MB the file transfer would not be accepted/completed. 
+- Upon finishing the transfer the other client would attempt to render it, displaying a thumbnail if it fails.
+ 
+If a client has an avatar saved it would display it. On starting a Tox client a client would attempt to send its avatar to each one of its friends. Upon setting a new avatar it would be sent to each one of its friends as well. If a new friend is added or comes online an avatar would be sent to him as soon as possible.
