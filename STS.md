@@ -24,7 +24,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 5. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
-6. [Pending changes](#pending-changes)
+6. [Pending Changes to the STS](#pending-changes-to-the-sts)
   * [User Profile Encryption](#user-profile-encryption)
   * [Logging](#logging)
 
