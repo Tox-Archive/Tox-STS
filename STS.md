@@ -201,7 +201,7 @@ The Single Tox Standard is created with heavy infulence from Tox community conse
 ### User Saftey / User Profile Encryption
 > Discussion in progress
 
-In order to prevent the threat of local data theft all Tox clients should offer a method to encrypt local data. Forcing data encryption or defaulting to encrypted data is not STS-required, but strongly suggested from to keep Tox data safe.
+In order to prevent the threat of local data theft all Tox clients should offer a method to encrypt local data. Forcing data encryption or defaulting to encrypted data is not STS-required, but strongly suggested to keep user's Tox data safe.
 
 ###Logging
 > Discussion in progress
