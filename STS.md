@@ -13,7 +13,6 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Emoticons](#emoticons)
   * [Message splitting](#message-splitting)
   * [Encodings](#encodings)
-  * [Resource Usage](#resource-usage)
 2. Client paths
   * [Tox data directory](#tox-data-directory)
   * [Logging](#logging)
@@ -77,9 +76,6 @@ All messages sent over Tox should be encoded in UTF-8. While clients can not exp
 - Discard the received message completely
 - Attempt to guess the encoding and re-encode as UTF-8 before showing the message to the user.
 If a user enters non-UTF-8 messages core should re-encode them as far as possible, using the Unicode replacement character (U+FFFD) for characters they cannot encode.
-
-###Resource Usage
-Clients confirming to the STS should use less than 100MB of memory during normal operation (Normal operations means having ~20 friends and being in one on one call with one or sending a file.) and less than 1% CPU when idle. This is because many users will use Tox clients in the background and they should not interfere with other software. The user must not think that he has to quit his tox client to run his other software more smoothly or to free up memory.
 
 ##Client paths/formats
 ###Tox data directory
