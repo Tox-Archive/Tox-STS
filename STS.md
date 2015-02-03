@@ -14,6 +14,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Message splitting](#message-splitting)
   * [Encodings](#encodings)
   * [Resource Usage](#resource-usage)
+  * [Responsiveness](#responsiveness)
 2. Client paths
   * [Tox data directory](#tox-data-directory)
   * [Logging](#logging)
@@ -80,6 +81,12 @@ If a user enters non-UTF-8 messages core should re-encode them as far as possibl
 
 ###Resource Usage
 Clients confirming to the STS should use less than 100MB of memory during normal operation (Normal operations means having ~20 friends and being in one on one call with one or sending a file.) and less than 1% CPU when idle. This is because many users will use Tox clients in the background and they should not interfere with other software. The user must not think that he has to quit his tox client to run his other software more smoothly or to free up memory.
+
+###Responsiveness
+Tox Clients must be responsive at all times. Any lag or slowness except in extreme conditions is unacceptable. Client statup times must be near instant. This is important as the user must feel that Tox is fast. Having a slow client will only frustrate users which is something we want to avoid.
+
+###Settings Pane
+The user must not have to restart his client or interupt his calls/etc.. to apply settings depending on which type of setting is applied. For example users must be able to change audio or video devices during calls without affecting the calls. It is acceptable however that changing proxy settings which require a core restart interrupt calls. Requiring users to restart their clients/calls for setting changes frustrates users and is a product of bad code and interface design.
 
 ##Client paths/formats
 ###Tox data directory
