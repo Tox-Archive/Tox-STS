@@ -15,6 +15,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Encodings](#encodings)
   * [Resource Usage](#resource-usage)
   * [Responsiveness](#responsiveness)
+  * [Settings Pane](#settings-pane)
 2. Client paths
   * [Tox data directory](#tox-data-directory)
   * [Logging](#logging)
