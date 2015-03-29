@@ -139,13 +139,13 @@ The Tox URI scheme is as follows: `tox:`. A client must accept `{CLIENT_NAME} to
 ###DNS Discovery
 A DNS discovery ID goes in the following format: `user@domain`. Users should not enter a DNS discovery ID in any way differently to adding a Tox ID - clients should be capable of identifying whether the input is a DNS discovery ID or a Tox ID. On adding a DNS discovery ID, a client must resolve a DNS TXT record for the value `user._tox.domain.`. Note the end dot. In this case the `@` is replaced with `_tox`, allowing the use of subdomains while ensuring a record is a Tox record. Typical records lack spaces, though clients should be able to deal with oddly formatted cases. Clients are also encouraged to check DNSSEC, though this is not a requirement.
 
-The `tox:` URI has 3 versions, tox1, tox2, and tox3. Tox3 is encrypted, though doesn't work with standard DNS servers and is hard to setup. Tox2 attempts to stop DNS request spamming and DNS poisoning attacks by using the a form of the nospam as a unique pin. Tox1 ignores these issues by listing just the Tox ID.
+The `tox:` URI has 3 versions, toxdns1, toxdns2, and toxdns3. Toxdns3 is encrypted, though doesn't work with standard DNS servers and is hard to setup. Toxdns2 attempts to stop DNS request spamming and DNS poisoning attacks by using the a form of the nospam as a unique pin. Toxdns1 ignores these issues by listing just the Tox ID.
 
 In the case of multiple records of different versions, clients should prioritize the highest version record. If there are more than one record of the same version, a client should use the first one in the order reported by the DNS lookup.
 
-| Tox1        | Tox2          |
+| ToxDNS1       | ToxDNS2       |
 | ------------- |:-------------:|
-| The value of a Tox DNS record goes `v=version;id=Tox ID`, where the version is tox1, and id is the users Tox ID. A client then follows the standard `tox:` scheme. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.      | The value of a Tox DNS record goes `v=version;pub=public key;check=checksum`, where the version is tox2, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends `==` to it, converts it from base64 to hexadecimal, and XOR's this against the key, checking it against the checksum to verify. |
+| The value of a Tox DNS record goes `v=version;id=Tox ID`, where the version is toxdns1, and id is the users Tox ID. A client then follows the standard `tox:` scheme. Typical records lack spaces, though clients should be able to deal with oddly formatted cases.      | The value of a Tox DNS record goes `v=version;pub=public key;check=checksum`, where the version is toxdns2, pub is the public key, and the checksum is the XOR'd value of the nospam and public key. A client then asks the user for a pin, then it appends `==` to it, converts it from base64 to hexadecimal, and XOR's this against the key, checking it against the checksum to verify. |
 
 
 #####BNF of Tox DNS URI Scheme v1 and v2
@@ -161,16 +161,16 @@ In the case of multiple records of different versions, clients should prioritize
 <dns-record-type> ::= "TXT"
 <dns-record-name> ::= <user> "._tox." <domain>
 <dns-record-value> ::= "v=" <dns-record-version-1> ";" "id=" <tox-id> | "v=" <dns-record-version-2> ";" "pub=" <public-key> ";" "check=" <checksum>
-<dns-record-version-1> ::= "tox1"
-<dns-record-version-2> ::= "tox2"
+<dns-record-version-1> ::= "toxdns1"
+<dns-record-version-2> ::= "toxdns2"
 ```
 
 `<user>` and `<domain>` you get from the URI,
 
 `<tox-id>` is obtained from toxcore, `<public-key>` and `<checksum>` can be taken from <tox-id> (more info [here](http://api.libtoxcore.so/core_concepts.html#the-tox-id)).
 
-#####Tox3 details
-Tox3 uses toxdns in clients to do encryption/decryption. Clients get the server public key used in tox3 from ``_tox.<domain>``. This is in the following format: ```{public key}```
+#####ToxDNS3 details
+Toxdns3 uses toxdns in clients to do encryption/decryption. Clients get the server public key used in toxdns3 from ``_tox.<domain>``. This is in the following format: ```{public key}```
 
 ######raw details:
 request:
@@ -195,17 +195,17 @@ Possible issues with this:
 - clients need a local list of tox dns server long term public keys.
 
 ####Domain signing
-Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with tox1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing tox1 and tox2 records with a signature of the data of the record where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCl to sign and verify records.
+Domain signing is an extension of DNS Discovery designed to further ensure DNS Discovery records have not been modified in transit or via existing DNS attacks. This becomes important with toxdns1 records where things like poisoning have not been mitigated. Domain signing works by appending an optional sign= to existing toxdns1 and toxdns2 records with a signature of the data of the record where this is compared to the known signing key for a domain. Domain signing uses crypto_sign_ed25519 from NaCl to sign and verify records.
 
-- The signed data for Tox1 is the name of the record before the _tox + the Tox ID
+- The signed data for ToxDNS1 is the name of the record before the _tox + the Tox ID
 
-- The signed data for Tox2 is the name of the record before the _tox + the public key + the check.
+- The signed data for ToxDNS2 is the name of the record before the _tox + the public key + the check.
 
 All data is signed in bytes to preserve space.
 
 To validate this data a client would take the looked up user before the _tox and append it to the bytes version, comparing this to the output of the verifying function in NaCl. If this data is the same, the record is valid.
 
-With Domain signing, the public key is also stored in a TXT record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
+With Domain signing, the public key is also stored in a TXT record, using the format ```v=toxdns;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
 ##
 
