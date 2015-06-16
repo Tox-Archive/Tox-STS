@@ -4,7 +4,7 @@
 ## For submitters
 * Submit proposal / change in pull request.
 * Include in commit and pull request description what change is about → e.g. look at [template](proposals.md).
-* Your pull request will be merged when majority (>60%) of maintainers of main clients will agree on merging it.
+* Your pull request will be merged when majority (>=60%) of maintainers of main clients will agree on merging it.
 * You may want to `@mention` maintainers in your pull request.
 
 
