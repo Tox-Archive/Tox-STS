@@ -16,6 +16,9 @@
 
 ## For people with write access to this repo
 * Do not merge or make changes to `STS.md` without going through pull request
+* When you are merging pull request to `STS.md`
+  - always make merge commit
+  - in merge commit message put information about who voted, and what their votes were
 * If you are changing "helper" (other than `STS.md`) files or merging pull request to them, please make sure that change is wanted and for better - please contact other people before changing it `;)`
 
 
