@@ -5,8 +5,8 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 ##Table of Contents
 
 1. User Identification & Interaction
-  * [User Profiles](#user-identification--interaction)
-  * [Friend Requests](#user-profiles)
+  * [User Identification](#user-identification--interaction)
+  * [Friend Requests](#friend-requests)
   * [Friends List](#friends-list)
   * [Group Messaging](#group-messaging)
   * [Multimedia Messaging](#multimedia-messaging)
@@ -19,11 +19,11 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 3. [User profiles](#user-profiles)
   * [Profile management](#profile-management)
   * [Recommendations](#recommendations-regarding-profile-management)
-4. [Avatars](#avatars)
-5. User Safety
+4. User Safety
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
-5. User Discovery
+5. [Avatars](#avatars)
+6. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
 
