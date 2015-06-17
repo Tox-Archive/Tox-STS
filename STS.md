@@ -72,10 +72,10 @@ Clients should split messages at the last whitespace character closest to ``TOX_
 - The receiving client gets multiple separate messages like normal and displays them normally.
 
 ###Encodings
-All messages sent over Tox should be encoded in UTF-8. While clients can not expect that all data they receive is encoded in UTF-8, they should do one of the following when receiving non-UTF-8 messages:
-- Discard the received message completely
-- Attempt to guess the encoding and re-encode as UTF-8 before showing the message to the user.
-If a user enters non-UTF-8 messages, client should re-encode them as far as possible, using the Unicode replacement character (U+FFFD) for characters they cannot encode.
+All text sent over Tox should be encoded in UTF-8. While clients can not expect that all data they receive is encoded in UTF-8, they should do one of the following when receiving non-UTF-8 text:
+- Discard the received text completely
+- Attempt to guess the encoding and re-encode as UTF-8 before showing the text to the user.
+If a user enters non-UTF-8 text, client should re-encode them as far as possible, using the Unicode replacement character (U+FFFD) for characters they cannot encode.
 
 ##Client paths/formats
 ###Tox data directory
