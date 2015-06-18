@@ -89,13 +89,7 @@ This was chosen to work with as many existing clients as possible while allowing
 
 ###Logging
 
-Discussion in progress
-- send a png named ``__avatar.png`` (This is two _'s) of no more than 1 MB. 
-- The other client would accept it automatically without prompting the user. 
-- If the image is over 1 MB the file transfer would not be accepted/completed. 
-- Upon finishing the transfer the other client would attempt to render it, displaying a thumbnail if it fails.
- 
-If a client has an avatar saved it would display it. On starting a Tox client a client would attempt to send its avatar to each one of its friends. Upon setting a new avatar it would be sent to each one of its friends as well. If a new friend is added or comes online an avatar would be sent to him as soon as possible.
+***Discussion in progress, in case where you want to contribute to it, please comment in relevant [issue #56](https://github.com/Tox/Tox-STS/issues/56).***
 
 ##User Safety
 
@@ -215,9 +209,6 @@ The path for Tox data files on Linux is ``~/.config/tox``
 
 This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without losing friends and IDs.
 
-###Logging
-
-Discussion in progress
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
