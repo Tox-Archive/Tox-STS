@@ -116,9 +116,10 @@ Clients should be able to track more than one Tox ID (i.e., its save file) in th
 
 ###Recommendations regarding profile management
 
-Clients should encourage good user habits.
-1) Warn the user when they are about to export an unencrypted profile
-2) Warn the user when they are about to delete a profile currently in use
+Clients should encourage good user habits:
+
+1. Warn the user when they are about to export an unencrypted profile
+2. Warn the user when they are about to delete a profile currently in use
 
 Clients on operating systems where accessing the file system directly is difficult should integrate with that OS's means of sharing files, by e.g. offering to attach a profile to an email (where warning 1 applies).
 
