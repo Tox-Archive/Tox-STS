@@ -9,9 +9,9 @@
 
 
 ## For client maintainers
-* Please make sure that your vote reflects not only your opinion, but also opinios of other people working on client you are maintaining.
+* Please make sure that your vote reflects not only your opinion, but also opinions of other people working on client you are maintaining.
 * Please review the proposed changes carefully.
-* Please, cast your vote, even if you don't really care. It's not like you have to do it right after proposal has been submitted, but please do so in timely manner when you will have time - no one wants to wait very long `;)`
+* Please, cast your vote, even if you don't really care. It's not like you have to do it right after a proposal has been submitted, but please do so in timely manner when you will have time - no one wants to wait very long `;)`
 
 
 ## For people with write access to this repo
