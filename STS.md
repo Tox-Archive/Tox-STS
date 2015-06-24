@@ -6,8 +6,8 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 
 1. User Identification & Interaction
   * [User Profiles](#user-identification--interaction)
-  * [Friend Requests](#user-profiles)
-  * [Friends List](#friends-list)
+  * [Contact Requests](#user-profiles)
+  * [Contacts List](#contacts-list)
   * [Group Messaging](#group-messaging)
   * [Multimedia Messaging](#multimedia-messaging)
   * [Emoticons](#emoticons)
@@ -32,21 +32,21 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 ##User Identification & Interaction
 ###The Tox ID
 - Users exchange a 76-character string containing hexadecimal representations of a public key, a nospam value, and a checksum to be used as an identifier. This is to be called the **Tox ID**.
-- Users may set a **Name** which offers a simpler means of identification once the friend request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in any way.
+- Users may set a **Name** which offers a simpler means of identification once the contact request has been accepted. These names may be changed on-the-fly and do not alter the Tox ID in any way.
 - Users may set a **Status**. The three statuses are **"Online, Away, and Busy"**.
 - Users may set a **Status message** , which is an arbitrary string of text that allows for updates about life activities, current willingness to converse, etc.
 
-###Friend Requests
+###Contact Requests
 There are three fields a Tox client must offer when a user goes to add another. While two of these fields are optional for the end-user to fill out, it is required that Tox clients provide all three fields in the UI. These are, and should be labeled as, as follows:
 
 | Type | Requirement | Description
 | --- | --- | ---
 | **Tox ID** | Required | The user can paste a Tox ID into the field, or, alternatively, if the user is on a mobile device, the option to use scan a QR code should also be offered
-| **Nickname** | Optional | The user can set a custom nickname for the friend they're about to add  
-| **Message** | Optional | The user can send a custom message to be displayed to the friend they're adding, either for identification purposes, or anything else.
+| **Nickname** | Optional | The user can set a custom nickname for the contact they're about to add  
+| **Message** | Optional | The user can send a custom message to be displayed to the contact they're adding, either for identification purposes, or anything else.
 
-###Friends List
-Each client should include a way to manage friend lists, including the ability to edit Nicknames, view last time a user has logged on, and perform various actions, such as friend deletion, etc.
+###Contacts List
+Each client should include a way to manage contact lists, including the ability to edit Nicknames, view last time a user has logged on, and perform various actions, such as contact deletion, etc.
 
 ###Group Messaging
 Tox allows for group messaging, where users may join a specified Tox ID and will be able to communicate in one "room". These are to be referred to as **Groupchats**. Clients will have a lot of leeway when it comes to the implementation of Groupchats, as each will offer a unique approach to it. However, they are a basic necessity and are required to be implemented, whatever the approach may be.
@@ -84,7 +84,7 @@ The path for Tox data on Windows is ``%APPDATA%/tox/`` (should this be roaming a
 
 The path for Tox data on Linux is ``~/.config/tox/`` 
 
-This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
+This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing contacts and IDs.
 
 
 ###Logging
@@ -95,7 +95,7 @@ Discussion in progress
 - If the image is over 1 MB the file transfer would not be accepted/completed. 
 - Upon finishing the transfer the other client would attempt to render it, displaying a thumbnail if it fails.
  
-If a client has an avatar saved it would display it. On starting a Tox client a client would attempt to send its avatar to each one of its friends. Upon setting a new avatar it would be sent to each one of its friends as well. If a new friend is added or comes online an avatar would be sent to him as soon as possible.
+If a client has an avatar saved it would display it. On starting a Tox client a client would attempt to send its avatar to each one of its contacts. Upon setting a new avatar it would be sent to each one of its contacts as well. If a new contact is added or comes online an avatar would be sent to him as soon as possible.
 
 ##User Safety
 
@@ -103,16 +103,16 @@ If a client has an avatar saved it would display it. On starting a Tox client a 
 In order to prevent the threat of local data theft, all Tox clients should, however the method or implementation (including choice of crypto), provide a method to encrypt all local data. This is not STS-required, but heavily suggested in order to keep the users of Tox safe. (under discussion)
 
 ###NoSpam Changing
-All Tox IDs have attached a small NoSpam Key to prevent friend request spam. All clients should include a quick method of changing the NoSpam Key in the event of spam. This should never be done automatically, and should require an explicit action from the user. For more information on what the NoSpam Key is, and what it does, visit our [API Docs](https://libtoxcore.so)
+All Tox IDs have attached a small NoSpam Key to prevent contact request spam. All clients should include a quick method of changing the NoSpam Key in the event of spam. This should never be done automatically, and should require an explicit action from the user. For more information on what the NoSpam Key is, and what it does, visit our [API Docs](https://libtoxcore.so)
 
 
 ##User profiles
 
-The Tox ID and its associated friends list and save file is called a profile. Save files should use the ".tox" extension to denote that they are Tox save files; clients should recognize .tox save files, preferably via integration with the operating system. That way, merely by double clicking a .tox file, the client will import the file for use. Here, import means copy the file into the data directory (see "Tox data directory" below). When talking about a profile's name, we mean the base name of the file.
+The Tox ID and its associated contacts list and save file is called a profile. Save files should use the ".tox" extension to denote that they are Tox save files; clients should recognize .tox save files, preferably via integration with the operating system. That way, merely by double clicking a .tox file, the client will import the file for use. Here, import means copy the file into the data directory (see "Tox data directory" below). When talking about a profile's name, we mean the base name of the file.
 
 ###Profile management
 
-Clients should be able to track more than one Tox ID (i.e., its save file) in the same data directory. Clients should thus offer the ability to switch profiles (i.e., disconnect from the network, load a different profile, and reconnect), as well as import, rename, export, and delete profiles. These operations are relative to the data directory: importing means copying a file to the data directory, exporting means allowing the user to save a profile in a location of their choice, and deleting means removing the profile from the data directory. Together, these operations make it easy for a user to share a Tox ID and friend's list among whatever devices he or she uses.
+Clients should be able to track more than one Tox ID (i.e., its save file) in the same data directory. Clients should thus offer the ability to switch profiles (i.e., disconnect from the network, load a different profile, and reconnect), as well as import, rename, export, and delete profiles. These operations are relative to the data directory: importing means copying a file to the data directory, exporting means allowing the user to save a profile in a location of their choice, and deleting means removing the profile from the data directory. Together, these operations make it easy for a user to share a Tox ID and contact's list among whatever devices he or she uses.
 
 ###Recommendations regarding profile management
 
@@ -213,7 +213,7 @@ The path for Tox data files on Windows is ``%APPDATA%/tox``
 
 The path for Tox data files on Linux is ``~/.config/tox``
 
-This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without losing friends and IDs.
+This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without losing contact and IDs.
 
 ###Logging
 
