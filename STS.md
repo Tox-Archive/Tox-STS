@@ -124,7 +124,40 @@ Clients on operating systems where accessing the file system directly is difficu
 
 ##Avatars
 
-See https://github.com/irungentoo/toxcore/blob/master/docs/Avatars.md#using-avatars-in-client-applications
+Clients should allow user to have own avatar and see friend's avatars.
+
+Avatars are PNG images with a maximum size of (2^16) bytes, enforced by client.
+
+Avatars are sent as a file transfer with ``TOX_FILE_KIND_AVATAR``. Every time a friend goes offline you must send them a new avatar transfer. The ``file_id`` will be set to the hash of the avatar. If no avatar is set, the size of the avatar will be set to zero and the ``file_id`` will be set to ``NULL``. If the avatar transfer is cancelled by the friend, the other client must assume the friend already has the avatar and will not try to send it again, as long as friend will stay online. Upon friend going offline and back online, client must try to send avatar again.
+
+If the avatar is changed, a new avatar transfer must be started to all online friends.
+
+When receiving a new file transfer with type ``TOX_FILE_KIND_AVATAR``:
+* check whether size is 0
+* if it is, cancel the file transfer and remove avatar of the friend if it was set
+* if the size is non-zero:
+  - check whether hash of the current avatar of a friend matches the ``file_id`` for the incoming avatar transfer
+  - if matches, the client will cancel the transfer
+  - if it doesn't, the client will accept the file transfer
+
+
+It is desirable that the user avatar and the cached friends avatars could be shared among different Tox clients in the same system. This not only makes switching from one client to another easier, but also minimizes the need of data transfers, as avatars already downloaded by other clients can be reused.
+
+* Avatars are stored in a directory called ``avatars`` and named as ``xxxxx.png``, where ``xxxxx`` is the complete public key (but **not** friend address!), encoded as an uppercase hexadecimal string and ``png`` is the extension for the PNG avatar. As new image formats may be used in the future, clients should ensure that no other file ``xxxxx.*`` exists. No file should be kept for a user that has no avatar.
+* The client's own avatar is not special and must be stored like any other. This is partially for simplicity, and partially in anticipation of profiles.
+* The avatar should be stored as it is received, without any modifications done by client for display purposes.
+
+Example for Linux and other Unix systems, with an user called ``gildor``:
+```
+Tox data directory: /home/gildor/.config/tox/
+Tox data file:      /home/gildor/.config/tox/tox_save
+Avatar data dir:    /home/gildor/.config/tox/avatars/
+Gildor's avatar:    /home/gildor/.config/tox/avatars/446F4E6F744D6564646C65496E546865416666616972734F6657697A61726473.png
+Elrond's avatar:    /home/gildor/.config/tox/avatars/43656C65627269616E20646F6E277420546F782E426164206D656D6F72696573.png
+Elladan's avatar:   /home/gildor/.config/tox/avatars/49486174655768656E48756D616E735468696E6B49416D4D7942726F74686572.png
+Elrohir's avatar    /home/gildor/.config/tox/avatars/726568746F7242794D6D41496B6E696854736E616D75486E6568576574614849.png
+```
+
 
 ##User Discovery
 ###Tox URI scheme
