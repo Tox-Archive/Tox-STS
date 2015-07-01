@@ -119,6 +119,8 @@ Clients on operating systems where accessing the file system directly is difficu
 
 ##Avatars
 
+__Clients should offer support for avatars, but it is not mandatory.__
+
 Clients should allow user to have own avatar and see friend's avatars.
 
 Avatars are PNG images with a maximum size of (2^16) bytes, enforced by client.
