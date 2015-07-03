@@ -27,4 +27,4 @@
 * Antox - maintainer @subliun
 * qTox - maintainer @tux3
 * Toxy - maintainer @Impyy
-* µTox - maintainer @irungentoo
+* µTox - maintainer @GrayHatter
