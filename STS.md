@@ -235,14 +235,6 @@ To validate this data a client would take the looked up user before the _tox and
 
 With Domain signing, the public key is also stored in a TXT record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
-##
-
-The path for Tox data files on Windows is ``%APPDATA%/tox``
-
-The path for Tox data files on Linux is ``~/.config/tox``
-
-This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without losing friends and IDs.
-
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
