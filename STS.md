@@ -26,6 +26,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 6. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
+7. [Bootstrapping](#bootstrapping)
 
 
 
@@ -234,6 +235,17 @@ All data is signed in bytes to preserve space.
 To validate this data a client would take the looked up user before the _tox and append it to the bytes version, comparing this to the output of the verifying function in NaCl. If this data is the same, the record is valid.
 
 With Domain signing, the public key is also stored in a TXT record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
+
+
+## Bootstrapping
+
+To connect with Tox network, one needs to bootstrap.
+
+Clients should bootstrap aggresively to at least 4 random nodes from a list every ~5 seconds until toxcore reports that connection with network has been established.
+
+When loading from a save, there is no need to bootstrap, unless ~10 seconds after running the first ``tox_iterate()`` toxcore still doesn't report that it is connected. If that happens, refer to the above strategy.
+
+A list of nodes is located at: https://wiki.tox.chat/doku.php?id=users:nodes
 
 
 ## Translation of STS Terminology
