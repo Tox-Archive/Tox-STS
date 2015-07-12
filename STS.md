@@ -77,6 +77,31 @@ All text sent over Tox should be encoded in UTF-8. While clients can not expect 
 - Attempt to guess the encoding and re-encode as UTF-8 before showing the text to the user.
 If a user enters non-UTF-8 text, client should re-encode them as far as possible, using the Unicode replacement character (U+FFFD) for characters they cannot encode.
 
+All filenames sent over Tox should be encoded in UTF-8. 
+Clients must not trust the filename they receive.  
+The following should be done when receiving any filename:
+- Replace non-UTF-8 characters with the Unicode replacement character (U+FFFD)
+- Discard the following characters
+ - `0x00` - `0x1F`
+ - `0x22`, `"` (double quote)
+ - `0x2A`, `*` (asterisk)
+ - `0x2F`, `/` (forward slash)
+ - `0x3A`, `:` (colon)
+ - `0x3C`, `<` (less than)
+ - `0x3E`, `>` (greater than)
+ - `0x3F`, `?` (question mark) 
+ - `0x5C`, `\` (backslash)
+ - `0x5E`, `^` (caret)
+ - `0x7C`, `|` (vertical bar or pipe)
+- Remove spaces from the end of the filename
+- Remove peroids from the end and the start of the filename
+- Replace the following filenames, with something else
+ - com1 - com9
+ - lpt1 - lpt9
+ - con
+ - nul
+ - prn
+
 ##Client paths/formats
 ###Tox data directory
 
