@@ -23,6 +23,7 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [User Profile Encryption](#user-profile-encryption)
   * [NoSpam Changing](#nospam-changing)
 5. [Avatars](#avatars)
+  * [No support for avatars](#no-avatars)
 6. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
@@ -117,7 +118,12 @@ Clients should encourage good user habits:
 
 Clients on operating systems where accessing the file system directly is difficult should integrate with that OS's means of sharing files, by e.g. offering to attach a profile to an email (where warning 1 applies).
 
-##Avatars
+## Avatars
+
+__Clients should offer support for avatars, but it is not mandatory.__
+
+If your client does not have support for avatars, look [here](#no-avatars).
+
 
 Clients should allow user to have own avatar and see friend's avatars.
 
@@ -152,6 +158,12 @@ Elrond's avatar:    /home/gildor/.config/tox/avatars/43656C65627269616E20646F6E2
 Elladan's avatar:   /home/gildor/.config/tox/avatars/49486174655768656E48756D616E735468696E6B49416D4D7942726F74686572.png
 Elrohir's avatar    /home/gildor/.config/tox/avatars/726568746F7242794D6D41496B6E696854736E616D75486E6568576574614849.png
 ```
+
+<a name="no-avatars" />
+### No support for avatars
+
+In case where client doesn't support avatars, all file transfers ``TOX_FILE_KIND_AVATAR`` **must** be canceled.
+
 
 
 ##User Discovery
