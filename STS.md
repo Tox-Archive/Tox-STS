@@ -1,4 +1,4 @@
-Single Tox Standard Draft v.0.1.0
+Single Tox Standard Draft v.0.1.1
 ===
 As Tox grows and more clients are created, we feel it is time to  create a Tox standard. Doing so will enable us to promote a single, cohesive brand despite the numerous clients. STS aims to offer a handbook for existing and potential client developers to follow so they can all remain consistent, yet unique in their own way. This will prevent confusion for users who wish to switch clients, and allow Tox to focus on pushing a single brand. At the moment, we are strongly recommending adherence to the STS, as it will foster a more productive environment, but we recognize that it's the right of the developer to choose.
 
@@ -10,6 +10,8 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
   * [Friends List](#friends-list)
   * [Group Messaging](#group-messaging)
   * [Multimedia Messaging](#multimedia-messaging)
+  * [File Transfers](#file-transfers)
+  * [File Resuming](#file-resuming)
   * [Emoticons](#emoticons)
   * [Message splitting](#message-splitting)
   * [Encodings](#encodings)
@@ -27,7 +29,8 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 6. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
-
+7. Customization
+  * [Themes Support](#themes-support)
 
 
 ##User Identification & Interaction
@@ -54,6 +57,51 @@ Tox allows for group messaging, where users may join a specified Tox ID and will
 
 ###Multimedia messaging
 A/V support is mandatory in all clients unless the platform does not support it. (EX: video support isn't necessary for CLI clients.) Developers should strive to reduce delay as much as possible. Clients that have trouble keeping audio and video in perfect sync with each other or that add unacceptable latency to audio or video are not acceptable.
+
+###File Transfers
+The ability to send and receive files is _a required feature for any useful instant messaging client_. Toxcore will handle all of your data transfer needs. All you have to do is provide the data, and any helpful information to pass along to your friend. At the very least, you'll need to give Toxcore:
+ * The `friend_id` you want to send the file to.
+ * The `kind` of data you want to send. 
+ * The `size` of data you plan to send. 
+ * A `name` for the file you're sending, along with the `length` of the name string
+(don't include the NULL term in the length, but do include one!).
+ 
+Optionally, you can also provide a `file_id`, and an int pointer if you'd like an error code if something goes wrong.  
+The API function looks like this:
+```c
+tox_file_send(tox, friend_number, TOX_FILE_KIND_DATA, file_size, file_id, filename, filename_length, error);
+```
+
+If the file transfer completes, the client **may** delete all stored info about the file. A file completes when the receiver has received it completely as such there is no need to try resuming completed files so any other info can be deleted, at the clients discretion. Toxcore will make one final callback to the chuck request function with a length of 0. At that point Toxcore considers the file completed, and purges any information about the file transfer and will reuse the file transfer number.
+
+###File Resuming
+Good clients support file resuming. Great clients do so even across client/core restarts!  
+
+Toxcore does **not** keep data that might have expired. So file transfers for a specific friend are purged from core _whenever that friend goes offline/disconnects_. Toxcore also makes **no** attempt to save file transfer info in the core data file. This means that it's the sole responsibility of **the client** to index, save, and restore file transfer information. Clients **must** take care of resuming file transfers using the same `file_id` parameter and make use of the seek api to avoid duplicating transfered data. If you don't want to create your own `file_id`, Toxcore will generate one for you that you can retrieve with:  
+```c
+tox_file_get_file_id(tox, friend_number, file_number, new_id, error);
+```
+
+You're always welcome to supply a `file_id` yourself, but the _general recommendation_ is to let Toxcore generate one for you. (You can do this by setting file_id to NULL).  
+
+When you're ready to resume a broken/interrupted transfer, you'll need to start the transfer **from** the original sending client. The sending client will save the `file_id` (`tox_file_get_file_id()`) along with file data/location, and any other useful information that your client may need to restart the file. Again, this information **must** be saved in long term by the client, because Toxcore will **not** save anything for you.  
+
+If the client is closed and reopened it will reload all the saved file info from disk.  
+The expectation of clients is that every time a friend comes online, the client will restart any pending transfers. Restarting a transfer is the same as starting a new transfer with the exception of the `file_id` parameter. For resumed transfers it **MUST NOT BE NULL**! Again Toxcore has **no** information about this file and will generate a **NEW** and **UNIQUE** `file_id` one that will **not** match the original. If the `file_id` changes the receiving client will have **no** means of differentiating it from a new transfer.  
+
+Complient clients will first check if it has any incomplete files with the same `file_id`. If it does, it will open the incomplete file and look at how much data was received already, and use the following code with the 4th parameter equal to the number of bytes **already** received:  
+```c
+tox_file_seek(tox, friend_number, file_number, size_transferred, error)
+```
+
+It will then accept the transfert by using:
+```c
+tox_file_control(tox, friend_number, file_number, TOX_FILE_CONTROL_RESUME, error)
+```
+
+_It's up to your client_ if you want to prompt the user to **RE**-accept the transfer, or just resume the transfer automatically for the user. See also Resuming Suggestions.  
+
+When a receiving file completes, all stored info related to the file transfer _can_, and **should** be deleted, (**not** the file transfer data it self, only the data associated with transferring that data). **Doing so will prevent future conflicts new/different transfers.**
 
 ###Emoticons
 While toxcore supports Unicode, user support varies.
@@ -247,6 +295,14 @@ To validate this data a client would take the looked up user before the _tox and
 
 With Domain signing, the public key is also stored in a TXT record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
+## Customization
+####Themes support
+Clients **should** have a way to change their appearance, some suggested themes are:
+ * a light theme.
+ * a dark theme (or a night theme).
+ * a high contrast theme.
+
+Of course the more there are, the better.
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
