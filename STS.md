@@ -1,4 +1,4 @@
-Single Tox Standard Draft v.0.1.1
+Single Tox Standard Draft v.0.1.0
 ===
 As Tox grows and more clients are created, we feel it is time to  create a Tox standard. Doing so will enable us to promote a single, cohesive brand despite the numerous clients. STS aims to offer a handbook for existing and potential client developers to follow so they can all remain consistent, yet unique in their own way. This will prevent confusion for users who wish to switch clients, and allow Tox to focus on pushing a single brand. At the moment, we are strongly recommending adherence to the STS, as it will foster a more productive environment, but we recognize that it's the right of the developer to choose.
 
@@ -29,8 +29,6 @@ As Tox grows and more clients are created, we feel it is time to  create a Tox s
 6. User Discovery
   * [Tox URI Scheme](#tox-uri-scheme)
   * [DNS Discovery](#dns-discovery)
-7. Customization
-  * [Themes Support](#themes-support)
 
 
 ##User Identification & Interaction
@@ -295,14 +293,6 @@ To validate this data a client would take the looked up user before the _tox and
 
 With Domain signing, the public key is also stored in a TXT record, using the format ```v=tox;pub={public key}```. It is important to note that due to potential issues wherein the public key may be the result of a poisoning attack, clients are encouraged to maintain a list of popular domains and keys. One such list is [here](http://wiki.tox.im/Domain_keys).
 
-## Customization
-####Themes support
-Clients **should** have a way to change their appearance, some suggested themes are:
- * a light theme.
- * a dark theme (or a night theme).
- * a high contrast theme.
-
-Of course the more there are, the better.
 
 ## Translation of STS Terminology
 Client developers must choose translations that resemble the English variations as closely as possible, except in the case where the Tox trademark is being used. For example, "Tox ID" is to remain, untouched, in English. In the future, translations will be provided for non-English Tox clients.
