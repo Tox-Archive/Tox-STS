@@ -81,11 +81,19 @@ If a user enters non-UTF-8 text, client should re-encode them as far as possible
 ##Client paths/formats
 ###Tox data directory
 
-The path for Tox data on Windows is ``%APPDATA%/tox/`` (should this be roaming app data?)
+The path for Tox data on Windows is ``%APPDATA%\tox\`` (should this be roaming app data?)
 
-The path for Tox data on Linux is ``~/.config/tox/`` 
+The path for Tox data on Linux is ``${XDG_CONFIG_HOME:-${HOME}/.config}/tox/``. This means:
+
+ 1. Look for the environment variable ``XDG_CONFIG_HOME``
+  1. If it exists and is not empty the environment variable's value should be considered to be the location of the user's configuration directory
+  2. If it does not exist or is empty a directory named ``.config`` in the user's home directory should be considered to be the user's configuration directory
+    * The user's home directory can either be determined using the mandatory ``HOME`` environment variable or by querying the user database using the ``getpwuid(getuid()).pw_dir`` call
+ 2. Within the user's configuration directory the ``tox`` subdirectory should then be used to store Tox-related files
 
 This was chosen to work with as many existing clients as possible while allowing users to switch clients easily without loosing friends and IDs.
+
+A client may never assume that any part of the Tox data directory path exists until it has created them.
 
 
 ###Logging
